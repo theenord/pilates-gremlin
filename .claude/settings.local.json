@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(curl -L -o public/profile.jpg \"https://ugc.production.linktr.ee/bb5e1dad-55d3-4891-bbf1-7ff7d354d046_IMG-2907.jpeg\" -w \"HTTP %{http_code}, %{size_download} bytes\\\\n\" -s)",
+      "Bash(npm install *)",
+      "Bash(npm run *)",
+      "Read(//tmp/**)",
+      "Bash(curl -sL \"https://linktr.ee/thepilatesgremlin\" -A \"Mozilla/5.0 \\(Windows NT 10.0; Win64; x64\\)\" -o /tmp/lt.html -w \"HTTP %{http_code}, %{size_download} bytes\\\\n\")",
+      "Bash(cd *)",
+      "Bash(node -e \"const a=require\\('./app/essentials-data.ts'\\);\")"
+    ]
+  }
+}

@@ -1,0 +1,43 @@
+@import "tailwindcss";
+
+/*
+  Pilates Gremlin design tokens.
+  The brand palette is exposed to Tailwind via @theme so utilities like
+  `bg-primary`, `text-ink`, `border-accent`, etc. are generated automatically.
+*/
+@theme {
+  --color-primary: #6d8ec5; /* signature brand blue */
+  --color-secondary: #a8c7d8; /* airy coastal blue */
+  --color-background: #faf8f5; /* soft warm ivory */
+  --color-accent: #e3d5ca; /* sand beige */
+  --color-ink: #2f3a46; /* deep charcoal navy (body text) */
+
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-fraunces), ui-serif, Georgia, serif;
+}
+
+html {
+  scroll-behavior: smooth;
+  /* Offset anchored scroll targets so they aren't hidden behind the sticky nav */
+  scroll-padding-top: 5rem;
+}
+
+body {
+  background-color: var(--color-background);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Respect users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
