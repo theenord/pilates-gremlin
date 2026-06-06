@@ -16,7 +16,9 @@
       "Bash(taskkill //PID 34760 //F)",
       "Bash(findstr :3200)",
       "Bash(findstr LISTENING)",
-      "Bash(taskkill *)"
+      "Bash(taskkill *)",
+      "Bash(node *)",
+      "PowerShell($f=\"C:\\\\Users\\\\micha\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\C--Users-micha-pilates-gremlin\\\\577b1421-c9a8-4655-82ee-b96d6718bb7c\\\\tasks\\\\bmjp65qm6.output\"; for \\($i=0;$i -lt 30;$i++\\){ if\\(Test-Path $f\\){ if\\(Select-String -Path $f -Pattern \"Ready|Error\" -Quiet\\){break} }; Start-Sleep -Milliseconds 500 }; try { $r=Invoke-WebRequest -Uri \"http://localhost:3300/\" -UseBasicParsing; \"HOME -> $\\($r.StatusCode\\), len=$\\($r.Content.Length\\)\" } catch { \"HOME -> ERROR $\\($_.Exception.Response.StatusCode.value__\\)\" })"
     ]
   }
 }
