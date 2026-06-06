@@ -7,7 +7,16 @@
       "Read(//tmp/**)",
       "Bash(curl -sL \"https://linktr.ee/thepilatesgremlin\" -A \"Mozilla/5.0 \\(Windows NT 10.0; Win64; x64\\)\" -o /tmp/lt.html -w \"HTTP %{http_code}, %{size_download} bytes\\\\n\")",
       "Bash(cd *)",
-      "Bash(node -e \"const a=require\\('./app/essentials-data.ts'\\);\")"
+      "Bash(node -e \"const a=require\\('./app/essentials-data.ts'\\);\")",
+      "Bash(npx next *)",
+      "Bash(netstat -ano)",
+      "Bash(findstr :3000)",
+      "Bash(taskkill //PID 16060 //F)",
+      "Bash(findstr :3100)",
+      "Bash(taskkill //PID 34760 //F)",
+      "Bash(findstr :3200)",
+      "Bash(findstr LISTENING)",
+      "Bash(taskkill *)"
     ]
   }
 }
