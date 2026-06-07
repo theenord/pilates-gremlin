@@ -1,3 +1,5 @@
+import { upcomingClasses } from "../site-data";
+
 export default function IntroBand() {
   return (
     <section
@@ -17,6 +19,41 @@ export default function IntroBand() {
           Forest, California, serving movers across Orange County, from Mission
           Viejo and Laguna Hills to Irvine, Tustin, and Costa Mesa.
         </p>
+
+        {upcomingClasses.length > 0 && (
+          <div className="mx-auto mt-8 max-w-xl">
+            <h3 className="text-sm font-semibold uppercase tracking-wide text-primary">
+              Upcoming Classes
+            </h3>
+            <ul className="mt-3 space-y-3">
+              {upcomingClasses.map((session) => (
+                <li
+                  key={session.href}
+                  className="flex flex-col items-center justify-between gap-3 rounded-2xl border border-accent/60 bg-background/70 px-4 py-3 text-left shadow-sm sm:flex-row"
+                >
+                  <div className="text-center sm:text-left">
+                    <p className="text-base font-semibold text-ink">
+                      {session.date}
+                      <span className="font-normal text-ink/70">
+                        {" · "}
+                        {session.time}
+                      </span>
+                    </p>
+                    <p className="text-sm text-ink/70">{session.location}</p>
+                  </div>
+                  <a
+                    href={session.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex shrink-0 items-center justify-center rounded-full bg-primary px-5 py-2 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-primary/90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+                  >
+                    Book
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
 
         {/*
           ===========================================================
