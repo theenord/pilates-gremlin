@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { BOOK_GROUP_URL } from "../site-data";
 
 export default function Hero() {
   return (
@@ -33,9 +32,7 @@ export default function Hero() {
 
           <div className="mt-2 flex w-full flex-col gap-3 sm:flex-row sm:items-center">
             <a
-              href={BOOK_GROUP_URL}
-              target="_blank"
-              rel="noopener noreferrer"
+              href="#upcoming-classes"
               className="inline-flex items-center justify-center rounded-full bg-primary px-6 py-3 text-base font-semibold text-white shadow-sm transition-colors hover:bg-primary/90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
             >
               Book a Group Class

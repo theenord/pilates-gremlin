@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { FaBars, FaXmark } from "react-icons/fa6";
-import { BOOK_GROUP_URL } from "../site-data";
 
 const navItems = [
   { label: "Home", href: "#home" },
@@ -42,9 +41,7 @@ export default function Nav() {
 
         <div className="flex items-center gap-2">
           <a
-            href={BOOK_GROUP_URL}
-            target="_blank"
-            rel="noopener noreferrer"
+            href="#upcoming-classes"
             className="rounded-full bg-primary px-4 py-2 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-primary/90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary sm:px-5"
           >
             Book a Class

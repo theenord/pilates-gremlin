@@ -3,8 +3,9 @@ import { upcomingClasses } from "../site-data";
 export default function IntroBand() {
   return (
     <section
+      id="upcoming-classes"
       aria-labelledby="intro-heading"
-      className="border-y border-accent/60 bg-accent/25"
+      className="scroll-mt-16 border-y border-accent/60 bg-accent/25"
     >
       <div className="mx-auto w-full max-w-3xl px-4 py-14 text-center sm:px-6 sm:py-16 lg:px-8">
         <h2
@@ -47,7 +48,7 @@ export default function IntroBand() {
                     rel="noopener noreferrer"
                     className="inline-flex shrink-0 items-center justify-center rounded-full bg-primary px-5 py-2 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-primary/90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
                   >
-                    Book
+                    Join
                   </a>
                 </li>
               ))}
