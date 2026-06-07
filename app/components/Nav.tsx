@@ -44,7 +44,7 @@ export default function Nav() {
             href="#upcoming-classes"
             className="rounded-full bg-primary px-4 py-2 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-primary/90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary sm:px-5"
           >
-            Book a Class
+            Join a Class
           </a>
 
           {/* Mobile menu toggle */}
