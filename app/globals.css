@@ -6,7 +6,7 @@
   `bg-primary`, `text-ink`, `border-accent`, etc. are generated automatically.
 */
 @theme {
-  --color-primary: #6d8ec5; /* signature brand blue */
+  --color-primary: #45659e; /* signature brand blue (darkened for WCAG AA contrast) */
   --color-secondary: #a8c7d8; /* airy coastal blue */
   --color-background: #faf8f5; /* soft warm ivory */
   --color-accent: #e3d5ca; /* sand beige */

@@ -135,7 +135,7 @@ export default function ContactForm() {
                 className="block text-sm font-medium text-ink"
               >
                 Phone{" "}
-                <span className="font-normal text-ink/50">(optional)</span>
+                <span className="font-normal text-ink/70">(optional)</span>
               </label>
               <input
                 id="phone"

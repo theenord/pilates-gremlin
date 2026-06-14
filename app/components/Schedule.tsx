@@ -82,7 +82,7 @@ export default function Schedule() {
             </a>
           </div>
         </div>
-        <p className="relative mt-5 border-t border-ink/10 pt-4 text-xs leading-relaxed text-ink/60">
+        <p className="relative mt-5 border-t border-ink/10 pt-4 text-xs leading-relaxed text-ink/75">
           Free intro class for new clients only, booked and managed through
           Neaumix Fit. Ages 16+. Grip socks required; please arrive 10 minutes
           early. Cancel at least 12 hours before class to avoid fees (late
@@ -113,7 +113,7 @@ export default function Schedule() {
                     <p className="font-display text-xl font-semibold leading-tight text-ink">
                       {day}
                     </p>
-                    <p className="text-xs uppercase tracking-wide text-ink/60">
+                    <p className="text-xs uppercase tracking-wide text-ink/75">
                       {datePart}
                     </p>
                   </div>
@@ -151,7 +151,7 @@ export default function Schedule() {
                         <span className="text-sm font-semibold text-ink">
                           I&apos;m a member
                         </span>
-                        <span className="text-xs text-ink/60">
+                        <span className="text-xs text-ink/75">
                           Book this class on ClassPass
                         </span>
                       </a>
@@ -164,7 +164,7 @@ export default function Schedule() {
                         <span className="text-sm font-semibold text-ink">
                           New to ClassPass
                         </span>
-                        <span className="text-xs text-ink/60">
+                        <span className="text-xs text-ink/75">
                           Join and get 20 bonus credits
                         </span>
                       </a>

@@ -127,7 +127,7 @@ export default function Hero() {
                 <span className="block font-display text-base font-semibold text-ink">
                   Mat Pilates
                 </span>
-                <span className="block text-xs text-ink/60">
+                <span className="block text-xs text-ink/75">
                   Neaumix Fit · Lake Forest
                 </span>
               </span>

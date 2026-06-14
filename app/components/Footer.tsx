@@ -9,7 +9,7 @@ export default function Footer() {
         <p className="font-display text-lg font-semibold tracking-tight text-ink">
           Pilates Gremlin
         </p>
-        <p className="max-w-md text-sm text-ink/60">
+        <p className="max-w-md text-sm text-ink/75">
           Mat Pilates at Neaumix Fit in Lake Forest, serving Orange County.
         </p>
 
@@ -30,7 +30,7 @@ export default function Footer() {
           ))}
         </ul>
 
-        <p className="text-sm text-ink/50">
+        <p className="text-sm text-ink/70">
           © {year} Pilates Gremlin. All rights reserved.
         </p>
       </div>
