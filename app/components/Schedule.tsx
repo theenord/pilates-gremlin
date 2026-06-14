@@ -54,7 +54,7 @@ export default function Schedule() {
               Neaumix Fit app or online booking.
             </p>
           </div>
-          <div className="flex flex-nowrap items-center gap-3">
+          <div className="flex flex-wrap items-center gap-3 sm:flex-nowrap">
             <a
               href={FIRST_FREE_URL}
               target="_blank"
