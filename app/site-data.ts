@@ -12,6 +12,23 @@ import { SiSubstack } from "react-icons/si";
 export const BOOK_GROUP_URL =
   "https://www.wellnessliving.com/explore/locations/open-gym/us-ca-lake_forest/neaumixfit-lake_forest/";
 
+// ClassPass: the studio's live schedule (for existing members) and Cecily's
+// personal referral link (for newcomers — earns her credit, gives them bonus
+// credits). The studio page is the closest ClassPass gets to a per-class link.
+export const CLASSPASS_STUDIO_URL =
+  "https://classpass.com/studios/neaumix-fit-lake-forest";
+export const CLASSPASS_REFERRAL_URL =
+  "https://classpass.com/invite/P1DVEBQ519?placement=VenueDetails";
+
+// First-class-free offer (run and managed by Neaumix Fit on WellnessLiving)
+// plus the Neaumix Fit app stores.
+export const FIRST_FREE_URL =
+  "https://www.wellnessliving.com/rs/catalog-view.html?k_business=663178&id_sale=1&k_id=3515671";
+export const NEAUMIX_APP_IOS =
+  "https://apps.apple.com/us/app/neaumix-fit-franchise/id6447298547";
+export const NEAUMIX_APP_ANDROID =
+  "https://play.google.com/store/apps/details?id=neaumix.fit.newport";
+
 export type UpcomingClass = {
   /** Human-readable date, e.g. "Sunday, June 7" */
   date: string;
@@ -52,6 +69,13 @@ export const upcomingClasses: UpcomingClass[] = [
   },
 ];
 
+export type TrainingAction = {
+  label: string;
+  href: string;
+  /** "primary" renders a filled button, "ghost" an outlined one. */
+  variant: "primary" | "ghost";
+};
+
 export type TrainingLink = {
   title: string;
   description: string;
@@ -59,6 +83,8 @@ export type TrainingLink = {
   Icon: IconType;
   /* Tailwind classes for the icon tile background + foreground */
   tone: string;
+  /** When present, the card shows these buttons instead of being one big link. */
+  actions?: TrainingAction[];
 };
 
 // "Ways to Train / Links" cards.
@@ -72,10 +98,23 @@ export const trainingLinks: TrainingLink[] = [
   },
   {
     title: "Book on ClassPass",
-    description: "Use your ClassPass credits to drop in.",
-    href: "https://classpass.com/invite/SVQ47LEV14?placement=VenueDetails",
+    description:
+      "New here? Join with 20 bonus credits. Already a member? Jump straight to the schedule.",
+    href: CLASSPASS_STUDIO_URL,
     Icon: FaCalendarCheck,
     tone: "bg-secondary/20 text-primary",
+    actions: [
+      {
+        label: "Join with bonus credits",
+        href: CLASSPASS_REFERRAL_URL,
+        variant: "primary",
+      },
+      {
+        label: "See the schedule",
+        href: CLASSPASS_STUDIO_URL,
+        variant: "ghost",
+      },
+    ],
   },
   {
     title: "On-Demand Classes",

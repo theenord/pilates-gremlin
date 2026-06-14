@@ -23,7 +23,13 @@
       "WebFetch(domain:www.wellnessliving.com)",
       "Bash(curl -s \"https://www.wellnessliving.com/explore/locations/open-gym/us-ca-lake_forest/neaumixfit-lake_forest/staff/872891/?service=1&serviceTab=-6631781&date=2026-06-07T07%3A00%3A00.000Z\")",
       "mcp__ide__getDiagnostics",
-      "Bash(git commit *)"
+      "Bash(git commit *)",
+      "PowerShell(git push *)",
+      "Bash(git add *)",
+      "Read(//c/Users/micha/AppData/Local/Temp/claude/C--Users-micha-pilates-gremlin/f41aa6a5-a683-4021-871d-2ee41e25b855/tasks/**)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:3000/sw.js)",
+      "Bash(curl -s -o /tmp/p2.html -w \"%{http_code}\" http://localhost:3002)",
+      "Bash(npm i *)"
     ]
   }
 }
