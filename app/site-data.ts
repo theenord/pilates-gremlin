@@ -44,12 +44,6 @@ export type UpcomingClass = {
 // WellnessLiving booking pages; remove past entries as they pass.
 export const upcomingClasses: UpcomingClass[] = [
   {
-    date: "Saturday, June 27",
-    time: "11:00–11:45 AM",
-    location: "Neaumix Fit · Lake Forest",
-    href: "https://www.wellnessliving.com/explore/locations/open-gym/us-ca-lake_forest/neaumixfit-lake_forest/schedule/classes/mat-pilates-436632807869/book/?dt=2026-06-27+18%3A00%3A00&kClass=17697612",
-  },
-  {
     date: "Sunday, June 28",
     time: "7:30–8:15 AM",
     location: "Neaumix Fit · Lake Forest",
