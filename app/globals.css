@@ -69,7 +69,7 @@ body::after {
   transition: width 0.08s linear;
 }
 
-/* Scroll reveal — only active once JS marks the page ready */
+/* Scroll reveal - only active once JS marks the page ready */
 .js-motion .reveal {
   opacity: 0;
   transform: translateY(24px);

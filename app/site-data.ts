@@ -11,9 +11,11 @@ import { SiSubstack } from "react-icons/si";
 // External booking URLs reused across the site.
 export const BOOK_GROUP_URL =
   "https://www.wellnessliving.com/explore/locations/open-gym/us-ca-lake_forest/neaumixfit-lake_forest/";
+export const NEAUMIX_SITE =
+  "https://www.neaumixfit.com/locations/lake-forest";
 
 // ClassPass: the studio's live schedule (for existing members) and Cecily's
-// personal referral link (for newcomers — earns her credit, gives them bonus
+// personal referral link (for newcomers - earns her credit, gives them bonus
 // credits). The studio page is the closest ClassPass gets to a per-class link.
 export const CLASSPASS_STUDIO_URL =
   "https://classpass.com/studios/neaumix-fit-lake-forest";
@@ -44,16 +46,10 @@ export type UpcomingClass = {
 // WellnessLiving booking pages; remove past entries as they pass.
 export const upcomingClasses: UpcomingClass[] = [
   {
-    date: "Sunday, June 28",
-    time: "7:30–8:15 AM",
-    location: "Neaumix Fit · Lake Forest",
-    href: "https://www.wellnessliving.com/explore/locations/open-gym/us-ca-lake_forest/neaumixfit-lake_forest/schedule/classes/mat-pilates-436632807869/book/?dt=2026-06-28+14%3A30%3A00&kClass=17697614",
-  },
-  {
     date: "Saturday, July 4",
-    time: "11:00–11:45 AM",
+    time: "7:00–7:45 AM",
     location: "Neaumix Fit · Lake Forest",
-    href: "https://www.wellnessliving.com/explore/locations/open-gym/us-ca-lake_forest/neaumixfit-lake_forest/schedule/classes/mat-pilates-436632807869/book/?dt=2026-07-04+18%3A00%3A00&kClass=17697612",
+    href: "https://www.wellnessliving.com/explore/locations/open-gym/us-ca-lake_forest/neaumixfit-lake_forest/schedule/classes/mat-pilates-436632807869/book/?dt=2026-07-04+14%3A00%3A00&kClass=18111023",
   },
   {
     date: "Sunday, July 5",
@@ -61,6 +57,35 @@ export const upcomingClasses: UpcomingClass[] = [
     location: "Neaumix Fit · Lake Forest",
     href: "https://www.wellnessliving.com/explore/locations/open-gym/us-ca-lake_forest/neaumixfit-lake_forest/schedule/classes/mat-pilates-436632807869/book/?dt=2026-07-05+14%3A30%3A00&kClass=17697614",
   },
+  {
+    date: "Saturday, July 11",
+    time: "11:00–11:45 AM",
+    location: "Neaumix Fit · Lake Forest",
+    href: "https://www.wellnessliving.com/explore/locations/open-gym/us-ca-lake_forest/neaumixfit-lake_forest/schedule/classes/mat-pilates-436632807869/book/?dt=2026-07-11+18%3A00%3A00&kClass=17697612",
+  },
+  {
+    date: "Sunday, July 12",
+    time: "7:30–8:15 AM",
+    location: "Neaumix Fit · Lake Forest",
+    href: "https://www.wellnessliving.com/explore/locations/open-gym/us-ca-lake_forest/neaumixfit-lake_forest/schedule/classes/mat-pilates-436632807869/book/?dt=2026-07-12+14%3A30%3A00&kClass=17697614",
+  },
+];
+
+// Blue Moon Pilates - private one-on-one sessions in Mission Viejo.
+export const BLUE_MOON_BOOK_URL = "http://get.mndbdy.ly/"; // TODO: replace with the full MindBody short link or https://clients.mindbodyonline.com/ASP/su1.asp?studioid=3357
+export const BLUE_MOON_SITE = "https://bluemoonpilates.com/";
+// Blue Moon books through the MindBody app.
+export const MINDBODY_APP_IOS =
+  "https://apps.apple.com/us/app/mindbody-fitness-wellness/id689501356";
+export const MINDBODY_APP_ANDROID =
+  "https://play.google.com/store/apps/details?id=com.mindbodyonline.connect";
+
+export type PrivateSlot = { day: string; time: string };
+
+export const blueMoonAvailability: PrivateSlot[] = [
+  { day: "Monday", time: "9:00 AM – 1:00 PM" },
+  { day: "Tuesday", time: "9:00 AM – 1:00 PM" },
+  { day: "Wednesday", time: "9:00 AM – 12:00 PM" },
 ];
 
 export type TrainingAction = {

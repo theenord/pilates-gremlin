@@ -13,13 +13,15 @@ export default function IntroBand() {
           id="intro-heading"
           className="mt-3 font-display text-2xl font-semibold tracking-tight text-ink sm:text-3xl"
         >
-          Pilates at Neaumix Fit in Lake Forest
+          Pilates in Lake Forest and Mission Viejo
         </h2>
         <p className="mx-auto mt-4 max-w-2xl text-lg leading-relaxed text-ink/75">
-          I teach mat Pilates at{" "}
+          I teach group mat Pilates at{" "}
           <span className="font-medium text-ink">Neaumix Fit</span> in Lake
-          Forest, California, serving movers across Orange County, from Mission
-          Viejo and Laguna Hills to Irvine, Tustin, and Costa Mesa.
+          Forest and private, comprehensive sessions at{" "}
+          <span className="font-medium text-ink">Blue Moon Pilates</span> in
+          Mission Viejo, serving movers across Orange County, from Laguna Hills
+          and Irvine to Tustin and Costa Mesa.
         </p>
       </div>
     </section>

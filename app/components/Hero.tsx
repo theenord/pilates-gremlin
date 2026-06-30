@@ -57,7 +57,7 @@ export default function Hero() {
         <div className="flex flex-col items-start gap-6 text-left">
           <span className="hero-rise hero-rise-1 inline-flex items-center gap-2 rounded-full border border-primary/15 bg-primary/10 px-3.5 py-1 text-sm font-medium tracking-wide text-primary">
             <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-primary" />
-            Lake Forest · Orange County
+            Lake Forest · Mission Viejo · Orange County
           </span>
 
           <h1
@@ -71,7 +71,7 @@ export default function Hero() {
           </h1>
 
           <p className="hero-rise hero-rise-3 max-w-md font-display text-lg italic leading-relaxed text-ink/70 sm:text-xl">
-            Cultivate diversity · good posture · Pilates as a system.
+            Cultivate Diversity · Good Posture · Pilates as a System
           </p>
 
           <div className="hero-rise hero-rise-4 mt-2 flex w-full flex-col gap-3 sm:flex-row sm:items-center">
@@ -117,20 +117,29 @@ export default function Hero() {
               />
             </div>
 
-            {/* Floating badge */}
-            <div className="badge-bob absolute -left-4 bottom-8 flex items-center gap-3 rounded-2xl bg-white px-4 py-3 shadow-xl ring-1 ring-ink/5">
-              <span
-                aria-hidden="true"
-                className="ring-spin h-8 w-8 rounded-full border-[3px] border-secondary border-t-primary"
-              />
-              <span className="leading-tight">
-                <span className="block font-display text-base font-semibold text-ink">
-                  Mat Pilates
-                </span>
-                <span className="block text-xs text-ink/75">
-                  Neaumix Fit · Lake Forest
+            {/* Floating badge - both studios, kept light */}
+            <div className="badge-bob absolute -left-4 bottom-8 rounded-2xl bg-white/95 px-4 py-3 shadow-xl ring-1 ring-ink/5 backdrop-blur">
+              <span className="flex items-center gap-2">
+                <span
+                  aria-hidden="true"
+                  className="ring-spin h-4 w-4 shrink-0 rounded-full border-2 border-secondary border-t-primary"
+                />
+                <span className="text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-primary">
+                  Now teaching
                 </span>
               </span>
+              <p className="mt-2 text-xs leading-snug">
+                <span className="font-display font-semibold text-ink">
+                  Group mat
+                </span>
+                <span className="text-ink/55"> · Neaumix Fit</span>
+              </p>
+              <p className="text-xs leading-snug">
+                <span className="font-display font-semibold text-ink">
+                  Comprehensive Pilates
+                </span>
+                <span className="text-ink/55"> · Blue Moon</span>
+              </p>
             </div>
           </div>
         </div>

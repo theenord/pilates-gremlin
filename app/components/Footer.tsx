@@ -10,7 +10,8 @@ export default function Footer() {
           Pilates Gremlin
         </p>
         <p className="max-w-md text-sm text-ink/75">
-          Mat Pilates at Neaumix Fit in Lake Forest, serving Orange County.
+          Mat Pilates at Neaumix Fit in Lake Forest and private sessions at Blue
+          Moon Pilates in Mission Viejo, serving Orange County.
         </p>
 
         <ul className="flex items-center gap-3">
