@@ -47,32 +47,35 @@ export type UpcomingClass = {
 export const upcomingClasses: UpcomingClass[] = [
   {
     date: "Saturday, July 4",
-    time: "7:00–7:45 AM",
+    time: "7:00-7:45 AM",
     location: "Neaumix Fit · Lake Forest",
     href: "https://www.wellnessliving.com/explore/locations/open-gym/us-ca-lake_forest/neaumixfit-lake_forest/schedule/classes/mat-pilates-436632807869/book/?dt=2026-07-04+14%3A00%3A00&kClass=18111023",
   },
   {
     date: "Sunday, July 5",
-    time: "7:30–8:15 AM",
+    time: "7:30-8:15 AM",
     location: "Neaumix Fit · Lake Forest",
     href: "https://www.wellnessliving.com/explore/locations/open-gym/us-ca-lake_forest/neaumixfit-lake_forest/schedule/classes/mat-pilates-436632807869/book/?dt=2026-07-05+14%3A30%3A00&kClass=17697614",
   },
   {
     date: "Saturday, July 11",
-    time: "11:00–11:45 AM",
+    time: "11:00-11:45 AM",
     location: "Neaumix Fit · Lake Forest",
     href: "https://www.wellnessliving.com/explore/locations/open-gym/us-ca-lake_forest/neaumixfit-lake_forest/schedule/classes/mat-pilates-436632807869/book/?dt=2026-07-11+18%3A00%3A00&kClass=17697612",
   },
   {
     date: "Sunday, July 12",
-    time: "7:30–8:15 AM",
+    time: "7:30-8:15 AM",
     location: "Neaumix Fit · Lake Forest",
     href: "https://www.wellnessliving.com/explore/locations/open-gym/us-ca-lake_forest/neaumixfit-lake_forest/schedule/classes/mat-pilates-436632807869/book/?dt=2026-07-12+14%3A30%3A00&kClass=17697614",
   },
 ];
 
 // Blue Moon Pilates - private one-on-one sessions in Mission Viejo.
-export const BLUE_MOON_BOOK_URL = "http://get.mndbdy.ly/"; // TODO: replace with the full MindBody short link or https://clients.mindbodyonline.com/ASP/su1.asp?studioid=3357
+// Direct https MindBody booking link for Blue Moon (studio id 3357). All
+// external links must be https; the old get.mndbdy.ly shortener was http-only.
+export const BLUE_MOON_BOOK_URL =
+  "https://clients.mindbodyonline.com/classic/ws?studioid=3357";
 export const BLUE_MOON_SITE = "https://bluemoonpilates.com/";
 // Blue Moon books through the MindBody app.
 export const MINDBODY_APP_IOS =
@@ -83,9 +86,9 @@ export const MINDBODY_APP_ANDROID =
 export type PrivateSlot = { day: string; time: string };
 
 export const blueMoonAvailability: PrivateSlot[] = [
-  { day: "Monday", time: "9:00 AM – 1:00 PM" },
-  { day: "Tuesday", time: "9:00 AM – 1:00 PM" },
-  { day: "Wednesday", time: "9:00 AM – 12:00 PM" },
+  { day: "Monday", time: "9:00 AM - 1:00 PM" },
+  { day: "Tuesday", time: "9:00 AM - 1:00 PM" },
+  { day: "Wednesday", time: "9:00 AM - 12:00 PM" },
 ];
 
 export type TrainingAction = {
@@ -164,27 +167,3 @@ export const trainingLinks: TrainingLink[] = [
     tone: "bg-secondary/20 text-primary",
   },
 ];
-
-// Compact set reused in the footer.
-export const socialLinks = [
-  {
-    label: "Instagram",
-    href: "https://www.instagram.com/thepilatesgremlin",
-    Icon: FaInstagram,
-  },
-  {
-    label: "Patreon",
-    href: "https://www.patreon.com/ThePilatesGremlin",
-    Icon: FaPatreon,
-  },
-  {
-    label: "Substack",
-    href: "https://substack.com/@thepilatesgremlin",
-    Icon: SiSubstack,
-  },
-  {
-    label: "Sweatpals",
-    href: "https://sweatpals.com/host/The_Pilates_Gremlin",
-    Icon: FaPeopleGroup,
-  },
-] as const;

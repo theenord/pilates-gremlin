@@ -270,21 +270,30 @@ export default function Schedule() {
             </div>
           </div>
 
-          <div className="flex flex-col border-t border-ink/10 pt-4 lg:h-full lg:justify-between">
-            <p className="text-xs leading-relaxed text-ink/75">
-              Free intro class for new clients only, booked and managed through
-              Neaumix Fit. Ages 16+. Grip socks required; please arrive 10
-              minutes early. Cancel at least 12 hours before class to avoid fees
-              (late cancel $10, no-show $15); for safety, arrivals more than 10
-              minutes late cannot join. Classes, pricing, and policies are set by
-              Neaumix Fit and may change. Current terms apply at the time of
-              booking.
-            </p>
+          <div className="flex flex-col gap-3 border-t border-ink/10 pt-4 lg:h-full lg:justify-between">
+            <details className="disclosure">
+              <summary className="inline-flex items-center gap-1.5 text-xs font-semibold text-ink/80 hover:text-primary">
+                Class policies
+                <FaChevronDown
+                  className="disclosure-caret h-3 w-3"
+                  aria-hidden="true"
+                />
+              </summary>
+              <p className="mt-2 text-xs leading-relaxed text-ink/75">
+                Free intro class for new clients only, booked and managed through
+                Neaumix Fit. Ages 16+. Grip socks required; please arrive 10
+                minutes early. Cancel at least 12 hours before class to avoid
+                fees (late cancel $10, no-show $15); for safety, arrivals more
+                than 10 minutes late cannot join. Classes, pricing, and policies
+                are set by Neaumix Fit and may change. Current terms apply at the
+                time of booking.
+              </p>
+            </details>
             <a
               href={NEAUMIX_SITE}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-3 inline-block text-xs font-semibold text-primary hover:text-primary/80"
+              className="inline-block text-xs font-semibold text-primary hover:text-primary/80"
             >
               About the studio
             </a>
@@ -292,17 +301,23 @@ export default function Schedule() {
         </div>
       </div>
 
-      {/* Unified weekly schedule - both studios, in weekday order */}
+      {/* Unified weekly schedule - both studios, in weekday order. Group mat
+          classes use the filled primary card; private availability windows use
+          a muted, outlined card so a "9:00 AM - 1:00 PM" window doesn't read as
+          a single class. */}
       {schedule.length > 0 && (
-        <ul className="reveal mt-8 divide-y divide-accent/60 border-t border-accent/60">
+        <ul className="reveal mt-8 space-y-3">
           {schedule.map((row, i) => {
             const isNext = i === 0;
-            const kindLabel =
-              row.kind === "group" ? "Group mat" : "Private session";
+            const isPrivate = row.kind === "private";
+            const kindLabel = isPrivate ? "Private availability" : "Group mat";
+            const cardClass = isPrivate
+              ? "border border-dashed border-primary/40 bg-secondary/10"
+              : "border border-accent/60 bg-white/70 shadow-sm";
             return (
               <li
                 key={`${row.kind}-${row.sort}-${row.time}`}
-                className="flex flex-col gap-4 py-6 sm:flex-row sm:items-center sm:justify-between"
+                className={`flex flex-col gap-4 rounded-2xl px-5 py-5 sm:flex-row sm:items-center sm:justify-between ${cardClass}`}
               >
                 <div className="flex items-baseline gap-4">
                   <div className="min-w-28">
@@ -319,10 +334,21 @@ export default function Schedule() {
                     </p>
                   </div>
                   <div>
-                    <p className="font-semibold text-ink">{row.time}</p>
+                    <p className="font-semibold text-ink">
+                      {isPrivate ? `Appointments ${row.time}` : row.time}
+                    </p>
+                    {isPrivate && (
+                      <p className="text-xs text-ink/60">
+                        By appointment. Reserve your preferred start time.
+                      </p>
+                    )}
                     <p className="text-sm text-ink/70">{row.location}</p>
-                    <span className="mt-1.5 inline-flex items-center gap-1.5 rounded-full bg-secondary/20 px-2 py-0.5 text-[0.65rem] font-semibold uppercase tracking-[0.14em] text-primary">
-                      {row.kind === "private" && (
+                    <span
+                      className={`mt-1.5 inline-flex items-center gap-1.5 rounded-full px-2 py-0.5 text-[0.65rem] font-semibold uppercase tracking-[0.14em] text-primary ${
+                        isPrivate ? "bg-white/70 ring-1 ring-primary/20" : "bg-secondary/20"
+                      }`}
+                    >
+                      {isPrivate && (
                         <FaMoon className="h-2.5 w-2.5" aria-hidden="true" />
                       )}
                       {kindLabel}

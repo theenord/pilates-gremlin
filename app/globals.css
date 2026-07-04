@@ -222,6 +222,22 @@ body::after {
   animation: cpPop 0.22s ease;
 }
 
+/* Collapsible disclosures (class policies, FAQ) - hide the native marker and
+   spin the caret when open. */
+.disclosure > summary {
+  list-style: none;
+  cursor: pointer;
+}
+.disclosure > summary::-webkit-details-marker {
+  display: none;
+}
+.disclosure > summary .disclosure-caret {
+  transition: transform 0.25s ease;
+}
+.disclosure[open] > summary .disclosure-caret {
+  transform: rotate(180deg);
+}
+
 /* Respect users who prefer reduced motion */
 @media (prefers-reduced-motion: reduce) {
   html {

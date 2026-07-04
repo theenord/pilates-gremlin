@@ -9,7 +9,7 @@ const inter = Inter({
   display: "swap",
 });
 
-// Display face: Newsreader — a modern, even-weight serif (replaces Fraunces).
+// Display face: Newsreader, a modern, even-weight serif (replaces Fraunces).
 const newsreader = Newsreader({
   variable: "--font-newsreader",
   subsets: ["latin"],
@@ -151,7 +151,10 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-        <Analytics />
+        {/* Vercel Analytics injects /_vercel/insights/script.js, which only
+            exists on Vercel's edge. Rendering it off-Vercel (local next start)
+            produces a 404 console error, so gate it to Vercel builds. */}
+        {process.env.VERCEL ? <Analytics /> : null}
       </body>
     </html>
   );

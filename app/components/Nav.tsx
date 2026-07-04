@@ -6,7 +6,7 @@ import { FaBars, FaXmark } from "react-icons/fa6";
 const navItems = [
   { label: "Home", href: "#home" },
   { label: "About", href: "#about" },
-  { label: "Classes", href: "#classes" },
+  { label: "Classes", href: "#upcoming-classes" },
   { label: "Contact", href: "#contact" },
 ];
 

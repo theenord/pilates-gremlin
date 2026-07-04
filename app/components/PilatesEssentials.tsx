@@ -20,6 +20,10 @@ export default function PilatesEssentials() {
           <p className="mt-4 text-lg leading-relaxed text-ink/75">
             A few essentials I recommend and reach for in class and at home.
           </p>
+          <p className="mt-4 text-sm text-ink/75">
+            Some links on this page are affiliate links. Purchases may earn
+            Pilates Gremlin a small commission at no extra cost to you.
+          </p>
         </div>
 
         <ul className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
