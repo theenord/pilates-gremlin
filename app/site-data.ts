@@ -75,7 +75,7 @@ export const upcomingClasses: UpcomingClass[] = [
 // Direct https MindBody booking link for Blue Moon (studio id 3357). All
 // external links must be https; the old get.mndbdy.ly shortener was http-only.
 export const BLUE_MOON_BOOK_URL =
-  "https://clients.mindbodyonline.com/classic/ws?studioid=3357";
+  "https://clients.mindbodyonline.com/classic/ws?studioid=3357&stype=-9";
 export const BLUE_MOON_SITE = "https://bluemoonpilates.com/";
 // Blue Moon books through the MindBody app.
 export const MINDBODY_APP_IOS =
