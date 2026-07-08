@@ -84,13 +84,15 @@ export default function Schedule() {
     };
   });
 
-  // Blue Moon private availability is weekly; surface the actual dates that
-  // fall between the first and last group class so the week reads in order.
+  // Blue Moon private availability is weekly; surface the actual dates from
+  // today through the last group class so the week reads in order. Starting at
+  // today (not the first group class) keeps this week's remaining private days
+  // visible even when the next group class is still days away.
   const today = new Date();
   today.setHours(0, 0, 0, 0);
   const groupTimes = groupRows.map((r) => r.sort);
   const windowStart = groupTimes.length
-    ? new Date(Math.min(...groupTimes))
+    ? new Date(Math.min(today.getTime(), ...groupTimes))
     : today;
   const windowEnd = groupTimes.length
     ? new Date(Math.max(...groupTimes))
@@ -103,6 +105,7 @@ export default function Schedule() {
     d <= windowEnd;
     d = new Date(d.getTime() + 86_400_000)
   ) {
+    if (d <= today) continue; // only surface upcoming (after today) availability
     const slot = slotByDay.get(DAY_NAMES[d.getDay()]);
     if (!slot) continue;
     privateRows.push({
