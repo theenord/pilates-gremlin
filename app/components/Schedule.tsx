@@ -88,7 +88,13 @@ export default function Schedule() {
   // today through the last group class so the week reads in order. Starting at
   // today (not the first group class) keeps this week's remaining private days
   // visible even when the next group class is still days away.
-  const today = new Date();
+  //
+  // Reckon "today" in the studios' time zone (both are in California). The site
+  // is built on Vercel in UTC, so a plain `new Date()` rolls over to tomorrow
+  // hours before California does and would drop that day's private slot.
+  const today = new Date(
+    new Date().toLocaleString("en-US", { timeZone: "America/Los_Angeles" }),
+  );
   today.setHours(0, 0, 0, 0);
   const groupTimes = groupRows.map((r) => r.sort);
   const windowStart = groupTimes.length
