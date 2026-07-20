@@ -12,6 +12,13 @@ Update the Neaumix Fit weekend mat classes in `app/site-data.ts` (the
    weekend-only, but if weekday dated classes exist, the same drop-when-passed
    rule applies to them.
 
+   Note: the live site already auto-hides passed group classes at render time
+   (`Schedule.tsx` filters `upcomingClasses` by `classStartMs > now`, and the
+   page uses `export const revalidate = 3600` for hourly ISR). This command's job
+   is still to physically prune passed entries from the data and add fresh future
+   ones — the render-time filter is only a between-runs safety net, and the list
+   goes empty on its own if it isn't replenished.
+
 2. **Schedule shape.** Neaumix Fit weekend classes only:
    - **Saturday** — 11:00-11:45 AM PDT (`kClass=18172097`, `dt` at `18:00:00` UTC)
    - **Sunday** — 7:30-8:15 AM PDT (`kClass=17697614`, `dt` at `14:30:00` UTC)

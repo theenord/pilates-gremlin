@@ -56,6 +56,25 @@ function classDate(href: string): Date {
   return new Date(Number(m[1]), Number(m[2]) - 1, Number(m[3]));
 }
 
+// The booking link's dt is the class start in UTC
+// (…dt=YYYY-MM-DD+HH%3AMM%3ASS…). Return that instant in epoch ms so a class can
+// be dropped from the schedule once it has started. NaN if the link can't be
+// parsed (caller keeps such entries rather than hiding them).
+function classStartMs(href: string): number {
+  const m = href.match(
+    /dt=(\d{4})-(\d{2})-(\d{2})[+ ](\d{2})(?::|%3A)(\d{2})(?::|%3A)(\d{2})/,
+  );
+  if (!m) return NaN;
+  return Date.UTC(
+    Number(m[1]),
+    Number(m[2]) - 1,
+    Number(m[3]),
+    Number(m[4]),
+    Number(m[5]),
+    Number(m[6]),
+  );
+}
+
 type ScheduleRow = {
   kind: "group" | "private";
   day: string;
@@ -69,20 +88,31 @@ type ScheduleRow = {
 };
 
 export default function Schedule() {
-  // Group mat classes at Neaumix Fit, dated from their booking links.
-  const groupRows: ScheduleRow[] = upcomingClasses.map((session) => {
-    const date = classDate(session.href);
-    const [day] = session.date.split(", ");
-    return {
-      kind: "group",
-      day,
-      dateLabel: fmtDate(date),
-      time: session.time,
-      location: session.location,
-      href: session.href,
-      sort: date.getTime(),
-    };
-  });
+  // Reckoned once so the whole render agrees on "now". The page uses ISR
+  // (revalidate) so this advances roughly hourly on the deployed site.
+  const nowMs = Date.now();
+
+  // Group mat classes at Neaumix Fit, dated from their booking links. Drop any
+  // class whose start time has already passed so "Next up" always points at a
+  // genuinely upcoming class; keep links we can't parse rather than hiding them.
+  const groupRows: ScheduleRow[] = upcomingClasses
+    .filter((session) => {
+      const start = classStartMs(session.href);
+      return Number.isNaN(start) || start > nowMs;
+    })
+    .map((session) => {
+      const date = classDate(session.href);
+      const [day] = session.date.split(", ");
+      return {
+        kind: "group",
+        day,
+        dateLabel: fmtDate(date),
+        time: session.time,
+        location: session.location,
+        href: session.href,
+        sort: date.getTime(),
+      };
+    });
 
   // Blue Moon private availability is weekly; surface the actual dates from
   // today through the last group class so the week reads in order. Starting at

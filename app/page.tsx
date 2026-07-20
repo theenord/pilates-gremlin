@@ -10,6 +10,10 @@ import FAQ from "./components/FAQ";
 import ContactForm from "./components/ContactForm";
 import Footer from "./components/Footer";
 
+// Regenerate the page in the background at most once an hour so the schedule's
+// "now" advances and classes that have passed drop off without a redeploy.
+export const revalidate = 3600;
+
 export default function Home() {
   return (
     <>
