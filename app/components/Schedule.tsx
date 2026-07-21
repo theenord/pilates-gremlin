@@ -75,6 +75,44 @@ function classStartMs(href: string): number {
   );
 }
 
+// Parse a displayed time range - "11:00-11:45 AM", "7:30-8:15 AM",
+// "9:00 AM - 1:00 PM" - into minutes past midnight for its start and end.
+// Nothing on the schedule is removed before its END, so this is what tells us
+// when a class or an availability window is actually over.
+function parseTimeRange(
+  label: string,
+): { start: number; end: number } | null {
+  const m = label.match(
+    /(\d{1,2}):(\d{2})\s*(AM|PM)?\s*(?:-|–|—|to)\s*(\d{1,2}):(\d{2})\s*(AM|PM)/i,
+  );
+  if (!m) return null;
+
+  const toMinutes = (h: number, min: number, meridiem: string) => {
+    const pm = meridiem.toUpperCase() === "PM";
+    return ((h % 12) + (pm ? 12 : 0)) * 60 + min;
+  };
+
+  const endMeridiem = m[6];
+  const end = toMinutes(Number(m[4]), Number(m[5]), endMeridiem);
+  // A range often writes the meridiem only once ("11:00-11:45 AM"). Assume the
+  // start shares the end's meridiem, and flip it when that would put the start
+  // after the end (e.g. "11:30-12:15 PM" means 11:30 AM).
+  let start = toMinutes(Number(m[1]), Number(m[2]), m[3] || endMeridiem);
+  if (!m[3] && start > end) start -= 12 * 60;
+
+  return { start, end };
+}
+
+// How long a class runs, in ms, from its displayed time range. Falls back to an
+// hour when the label has no range, so an unparseable entry still lingers past
+// its start rather than vanishing the moment it begins.
+const DEFAULT_CLASS_MS = 60 * 60 * 1000;
+function classDurationMs(time: string): number {
+  const range = parseTimeRange(time);
+  if (!range) return DEFAULT_CLASS_MS;
+  return (range.end - range.start) * 60 * 1000;
+}
+
 type ScheduleRow = {
   kind: "group" | "private";
   day: string;
@@ -92,13 +130,15 @@ export default function Schedule() {
   // (revalidate) so this advances roughly hourly on the deployed site.
   const nowMs = Date.now();
 
-  // Group mat classes at Neaumix Fit, dated from their booking links. Drop any
-  // class whose start time has already passed so "Next up" always points at a
-  // genuinely upcoming class; keep links we can't parse rather than hiding them.
+  // Group mat classes at Neaumix Fit, dated from their booking links. A class
+  // stays listed until its END time passes - an 11:00-11:45 AM class is still
+  // shown at 11:20 and drops at 11:45 - so an in-progress class is never pulled
+  // out from under someone. Keep links we can't parse rather than hiding them.
   const groupRows: ScheduleRow[] = upcomingClasses
     .filter((session) => {
       const start = classStartMs(session.href);
-      return Number.isNaN(start) || start > nowMs;
+      if (Number.isNaN(start)) return true;
+      return start + classDurationMs(session.time) > nowMs;
     })
     .map((session) => {
       const date = classDate(session.href);
@@ -122,9 +162,14 @@ export default function Schedule() {
   // Reckon "today" in the studios' time zone (both are in California). The site
   // is built on Vercel in UTC, so a plain `new Date()` rolls over to tomorrow
   // hours before California does and would drop that day's private slot.
-  const today = new Date(
+  const nowPacific = new Date(
     new Date().toLocaleString("en-US", { timeZone: "America/Los_Angeles" }),
   );
+  // Minutes past midnight in California, compared against each window's end so
+  // today's availability survives until it actually closes.
+  const nowMinutesPacific =
+    nowPacific.getHours() * 60 + nowPacific.getMinutes();
+  const today = new Date(nowPacific);
   today.setHours(0, 0, 0, 0);
   const groupTimes = groupRows.map((r) => r.sort);
   const windowStart = groupTimes.length
@@ -141,9 +186,16 @@ export default function Schedule() {
     d <= windowEnd;
     d = new Date(d.getTime() + 86_400_000)
   ) {
-    if (d <= today) continue; // only surface upcoming (after today) availability
+    if (d < today) continue;
     const slot = slotByDay.get(DAY_NAMES[d.getDay()]);
     if (!slot) continue;
+    // Today's window stays up until its end time in California has passed - a
+    // 9:00 AM - 1:00 PM Monday is still bookable at noon and only drops after
+    // 1:00 PM. Unparseable ranges stay all day rather than disappearing early.
+    if (d.getTime() === today.getTime()) {
+      const range = parseTimeRange(slot.time);
+      if (range && nowMinutesPacific >= range.end) continue;
+    }
     privateRows.push({
       kind: "private",
       day: slot.day,

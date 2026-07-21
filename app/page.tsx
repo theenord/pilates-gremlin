@@ -10,9 +10,11 @@ import FAQ from "./components/FAQ";
 import ContactForm from "./components/ContactForm";
 import Footer from "./components/Footer";
 
-// Regenerate the page in the background at most once an hour so the schedule's
-// "now" advances and classes that have passed drop off without a redeploy.
-export const revalidate = 3600;
+// Regenerate the page in the background at most every 15 minutes so the
+// schedule's "now" advances without a redeploy. Classes drop at their END time
+// (see Schedule.tsx), so this bounds how long a just-finished class lingers -
+// an hour was too coarse for a window that closes at, say, 12:45.
+export const revalidate = 900;
 
 export default function Home() {
   return (

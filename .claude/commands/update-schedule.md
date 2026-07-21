@@ -12,9 +12,16 @@ Update the Neaumix Fit weekend mat classes in `app/site-data.ts` (the
    weekend-only, but if weekday dated classes exist, the same drop-when-passed
    rule applies to them.
 
-   Note: the live site already auto-hides passed group classes at render time
-   (`Schedule.tsx` filters `upcomingClasses` by `classStartMs > now`, and the
-   page uses `export const revalidate = 3600` for hourly ISR). This command's job
+   **Rule: nothing is ever removed before its END time.** A class or window
+   stays on the schedule for its full duration — an 11:00–11:45 AM class drops
+   at 11:45 (not 11:00), a 9:00 AM – 1:00 PM window drops after 1:00 PM, an
+   11:00 AM – 12:45 PM window drops after 12:45. Never drop something at its
+   start time or at the start of its day.
+
+   Note: the live site already auto-hides finished group classes at render time
+   (`Schedule.tsx` filters `upcomingClasses` by start + duration parsed from the
+   `time` range, and the page uses `export const revalidate = 900` for 15-minute
+   ISR so a just-ended class doesn't linger long). This command's job
    is still to physically prune passed entries from the data and add fresh future
    ones — the render-time filter is only a between-runs safety net, and the list
    goes empty on its own if it isn't replenished.
@@ -50,13 +57,13 @@ Update the Neaumix Fit weekend mat classes in `app/site-data.ts` (the
    `"Neaumix Fit · Lake Forest"`.
 
 5. **Leave the Blue Moon data alone.** The Mon–Wed `blueMoonAvailability` block
-   is a standing weekly schedule — do NOT edit or delete days from it. Passed
+   is a standing weekly schedule — do NOT edit or delete days from it. Finished
    weekdays are dropped automatically at render time: `Schedule.tsx` computes the
-   real upcoming dates for each Blue Moon weekday and skips any that are today or
-   earlier (`if (d <= today) continue;`), reckoning "today" in California time.
-   So if Monday has passed, only Tuesday/Wednesday show — and it resets each week
-   on its own. (Static build, so "today" refreshes on redeploy; the commit +
-   push in the next step triggers the Vercel rebuild that drops the passed day.)
+   real upcoming dates for each Blue Moon weekday, and today's day is kept until
+   its window's **end** time has passed in California time (Monday 9:00 AM –
+   1:00 PM stays visible all morning and drops after 1:00 PM). So mid-morning
+   Monday you still see Monday/Tuesday/Wednesday; Monday afternoon leaves
+   Tuesday/Wednesday — and it resets each week on its own.
 
 6. When done, show a summary table of the dates/links verified and ask whether
    to commit + push.
