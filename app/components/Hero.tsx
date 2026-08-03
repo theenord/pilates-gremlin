@@ -129,7 +129,7 @@ export default function Hero() {
               </span>
               <p className="mt-2 text-xs leading-snug">
                 <span className="font-display font-semibold text-ink">
-                  Group mat
+                  Group classes
                 </span>
                 <span className="text-ink/55"> · Neaumix Fit</span>
               </p>

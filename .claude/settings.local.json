@@ -29,7 +29,24 @@
       "Read(//c/Users/micha/AppData/Local/Temp/claude/C--Users-micha-pilates-gremlin/f41aa6a5-a683-4021-871d-2ee41e25b855/tasks/**)",
       "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:3000/sw.js)",
       "Bash(curl -s -o /tmp/p2.html -w \"%{http_code}\" http://localhost:3002)",
-      "Bash(npm i *)"
+      "Bash(npm i *)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://localhost:3001/)",
+      "Bash(curl -s http://localhost:3001/)",
+      "Bash(grep -E '\\\\.\\(js|jsx|mjs|css|json|md\\)$')",
+      "PowerShell(npm run *)",
+      "PowerShell(Get-Content *)",
+      "PowerShell(Get-CimInstance *)",
+      "PowerShell(Get-Job *)",
+      "Bash(npx tsc *)",
+      "Bash(FAKE_NOW=__CMDSUB_OUTPUT__ NODE_OPTIONS='--require C:/Users/micha/AppData/Local/Temp/claude/C--Users-micha-pilates-gremlin/a854cad5-2492-4d40-9702-5d60b1f48321/scratchpad/fake.cjs' npx next build)",
+      "Bash(git --no-pager log --oneline -1)",
+      "Bash(powershell -NoProfile -Command \"[System.TimeZoneInfo]::ConvertTimeBySystemTimeZoneId\\([DateTime]::UtcNow,'Pacific Standard Time'\\).ToString\\('yyyy-MM-dd HH:mm:ss dddd'\\)\")",
+      "PowerShell(git *)",
+      "PowerShell(npx tsc --noEmit -p C:\\\\Users\\\\micha\\\\pilates-gremlin\\\\tsconfig.json)",
+      "PowerShell(Get-Date)",
+      "PowerShell($u='https://www.wellnessliving.com/explore/locations/open-gym/us-ca-lake_forest/neaumixfit-lake_forest/?date=2026-08-07T12:00:00.000Z&page=1'; try { $r=Invoke-WebRequest -Uri $u -UseBasicParsing -TimeoutSec 45; \"STATUS: $\\($r.StatusCode\\)\"; \"LEN: $\\($r.Content.Length\\)\"; \"kClass count: \" + \\([regex]::Matches\\($r.Content,'kClass'\\)\\).Count; \"Reformer count: \" + \\([regex]::Matches\\($r.Content,'Reformer'\\)\\).Count } catch { \"ERR: $\\($_.Exception.Message\\)\" })",
+      "PowerShell(npx tsc --noEmit -p tsconfig.json; if \\($?\\) { \"TYPECHECK OK\" })",
+      "PowerShell(Start-Process -FilePath \"npm\" -ArgumentList \"run\",\"dev\" -WorkingDirectory \"C:\\\\Users\\\\micha\\\\pilates-gremlin\" -WindowStyle Hidden -RedirectStandardOutput \"C:\\\\Users\\\\micha\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\C--Users-micha-pilates-gremlin\\\\8153f029-7966-4de2-ba8e-ced14f8697a0\\\\scratchpad\\\\dev.log\" -RedirectStandardError \"C:\\\\Users\\\\micha\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\C--Users-micha-pilates-gremlin\\\\8153f029-7966-4de2-ba8e-ced14f8697a0\\\\scratchpad\\\\dev.err.log\"; Start-Sleep -Seconds 20; Get-Content \"C:\\\\Users\\\\micha\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\C--Users-micha-pilates-gremlin\\\\8153f029-7966-4de2-ba8e-ced14f8697a0\\\\scratchpad\\\\dev.log\" -Tail 15)"
     ]
   }
 }

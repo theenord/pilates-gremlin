@@ -48,12 +48,26 @@ const MONTHS = [
 
 const fmtDate = (d: Date) => `${MONTHS[d.getMonth()]} ${d.getDate()}`;
 
-// The calendar date lives in the WellnessLiving booking link (…dt=YYYY-MM-DD…),
-// which is the source of truth for each class.
+// The calendar date a class belongs to, in the studio's own time zone.
+//
+// The booking link's dt is a UTC instant, so an afternoon class has already
+// rolled over into the *next* UTC day - Cecily's 5:30 PM Friday reformer is
+// dt=2026-08-08+00%3A30%3A00. Reading Y/M/D straight off the link would label
+// and sort that class as Saturday, so convert the instant to California time
+// first and take the date there.
 function classDate(href: string): Date {
-  const m = href.match(/dt=(\d{4})-(\d{2})-(\d{2})/);
-  if (!m) return new Date(NaN);
-  return new Date(Number(m[1]), Number(m[2]) - 1, Number(m[3]));
+  const startMs = classStartMs(href);
+  if (Number.isNaN(startMs)) return new Date(NaN);
+  const pacific = new Date(
+    new Date(startMs).toLocaleString("en-US", {
+      timeZone: "America/Los_Angeles",
+    }),
+  );
+  return new Date(
+    pacific.getFullYear(),
+    pacific.getMonth(),
+    pacific.getDate(),
+  );
 }
 
 // The booking link's dt is the class start in UTC
@@ -118,6 +132,8 @@ type ScheduleRow = {
   day: string;
   /** Sub-label under the day, e.g. "July 6". */
   dateLabel: string;
+  /** Badge text - the class name for group rows, a fixed label for private. */
+  label: string;
   time: string;
   location: string;
   href: string;
@@ -143,14 +159,18 @@ export default function Schedule() {
     .map((session) => {
       const date = classDate(session.href);
       const [day] = session.date.split(", ");
+      // Sort on the exact start instant so several classes on one day (the
+      // Friday reformer block) read in time order, not just day order.
+      const start = classStartMs(session.href);
       return {
         kind: "group",
         day,
         dateLabel: fmtDate(date),
+        label: session.name,
         time: session.time,
         location: session.location,
         href: session.href,
-        sort: date.getTime(),
+        sort: Number.isNaN(start) ? date.getTime() : start,
       };
     });
 
@@ -200,6 +220,7 @@ export default function Schedule() {
       kind: "private",
       day: slot.day,
       dateLabel: fmtDate(d),
+      label: "Private availability",
       time: slot.time,
       location: BLUE_MOON_LOCATION,
       href: BLUE_MOON_BOOK_URL,
@@ -227,8 +248,9 @@ export default function Schedule() {
           Practice with me this week
         </h2>
         <p className="mt-4 text-lg leading-relaxed text-ink/75">
-          Group mat classes at Neaumix Fit in Lake Forest and private,
-          comprehensive sessions at Blue Moon Pilates in Mission Viejo. Book
+          Group mat and reformer classes at Neaumix Fit in Lake Forest and
+          private, comprehensive sessions at Blue Moon Pilates in Mission
+          Viejo. Book
           whichever fits your week.
         </p>
       </div>
@@ -401,7 +423,6 @@ export default function Schedule() {
           {schedule.map((row, i) => {
             const isNext = i === 0;
             const isPrivate = row.kind === "private";
-            const kindLabel = isPrivate ? "Private availability" : "Group mat";
             const cardClass = isPrivate
               ? "border border-dashed border-primary/40 bg-secondary/10"
               : "border border-accent/60 bg-white/70 shadow-sm";
@@ -442,7 +463,7 @@ export default function Schedule() {
                       {isPrivate && (
                         <FaMoon className="h-2.5 w-2.5" aria-hidden="true" />
                       )}
-                      {kindLabel}
+                      {row.label}
                     </span>
                   </div>
                 </div>
