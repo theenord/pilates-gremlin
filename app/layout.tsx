@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     template: "%s | Pilates Gremlin",
   },
   description:
-    "Pilates Gremlin teaches mat Pilates at Neaumix Fit in Lake Forest, CA. Group classes and private sessions serving Lake Forest, Mission Viejo, Laguna Hills, Irvine, and all of Orange County.",
+    "Pilates Gremlin teaches mat and reformer classes at Neaumix Fit in Lake Forest, CA, plus private sessions at Blue Moon Pilates in Mission Viejo. Serving Laguna Hills, Irvine, and all of Orange County.",
   keywords: [
     "Pilates",
     "Pilates Lake Forest",
@@ -53,7 +53,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Pilates Gremlin | Pilates in Lake Forest & Orange County",
     description:
-      "Group mat classes and private Pilates sessions at Neaumix Fit in Lake Forest, serving all of Orange County.",
+      "Group mat and reformer classes at Neaumix Fit in Lake Forest, plus private Pilates sessions at Blue Moon in Mission Viejo. Serving all of Orange County.",
     url: siteUrl,
     siteName: "Pilates Gremlin",
     locale: "en_US",
@@ -71,7 +71,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Pilates Gremlin | Pilates in Lake Forest & Orange County",
     description:
-      "Group mat classes and private Pilates sessions at Neaumix Fit in Lake Forest, serving all of Orange County.",
+      "Group mat and reformer classes at Neaumix Fit in Lake Forest, plus private Pilates sessions at Blue Moon in Mission Viejo. Serving all of Orange County.",
     images: ["/profile.jpg"],
   },
   robots: {
@@ -93,7 +93,7 @@ const jsonLd = {
   "@type": "HealthAndBeautyBusiness",
   name: "Pilates Gremlin",
   description:
-    "Pilates instruction including group mat classes and private sessions at Neaumix Fit in Lake Forest, CA, serving Orange County.",
+    "Pilates instruction including group mat and reformer classes at Neaumix Fit in Lake Forest, CA, and private sessions at Blue Moon Pilates in Mission Viejo, serving Orange County.",
   url: siteUrl,
   image: `${siteUrl}/profile.jpg`,
   location: {
