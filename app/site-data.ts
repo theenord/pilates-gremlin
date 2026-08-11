@@ -48,51 +48,16 @@ export type UpcomingClass = {
 // Upcoming Cecily-taught classes at Neaumix Fit. Dates/links come straight from
 // the WellnessLiving booking pages; remove past entries as they pass.
 // kClass identifies the individual class instance, NOT the weekly recurrence -
-// two Saturdays running can carry different ids (Aug 8 is 18172097, Aug 15 is
-// 18417087). Always read each date's id off the live schedule; never copy one
+// consecutive Saturdays can carry different ids, and ids sometimes do repeat
+// across dates (Aug 15 and Aug 22 are both 18417087; Aug 16 and Aug 23 are both
+// 17697614). Always read each date's id off the live schedule; never copy one
 // forward to next week. Times move too, so verify those per date as well.
 // Note the studio's schedule widget paginates - a day's later classes can sit
 // on page 2, so check every page before concluding a class doesn't exist.
+// dt is the start in UTC, so an afternoon class carries the *next* day's date
+// (a 5:30 PM PDT class is 00:30Z) - that is correct, and Schedule.tsx converts
+// it back to the Pacific calendar date.
 export const upcomingClasses: UpcomingClass[] = [
-  // Friday afternoon reformer block. dt is the start in UTC, so the 5:30 PM
-  // class carries the *next* day's date (2026-08-08 00:30Z) - that is correct,
-  // and Schedule.tsx converts it back to the Pacific calendar date.
-  {
-    date: "Friday, August 7",
-    name: "Reformer Pilates",
-    time: "3:30-4:15 PM",
-    location: "Neaumix Fit · Lake Forest",
-    href: "https://www.wellnessliving.com/explore/locations/open-gym/us-ca-lake_forest/neaumixfit-lake_forest/schedule/classes/reformer-pilates-436632767675/book/?dt=2026-08-07+22%3A30%3A00&kClass=18320965",
-  },
-  {
-    date: "Friday, August 7",
-    name: "Reformer Pilates",
-    time: "4:30-5:15 PM",
-    location: "Neaumix Fit · Lake Forest",
-    href: "https://www.wellnessliving.com/explore/locations/open-gym/us-ca-lake_forest/neaumixfit-lake_forest/schedule/classes/reformer-pilates-436632767675/book/?dt=2026-08-07+23%3A30%3A00&kClass=18320967",
-  },
-  {
-    date: "Friday, August 7",
-    name: "Reformer Pilates",
-    time: "5:30-6:15 PM",
-    location: "Neaumix Fit · Lake Forest",
-    href: "https://www.wellnessliving.com/explore/locations/open-gym/us-ca-lake_forest/neaumixfit-lake_forest/schedule/classes/reformer-pilates-436632767675/book/?dt=2026-08-08+00%3A30%3A00&kClass=18320972",
-  },
-  {
-    // One-off early start: this Saturday only, not a schedule change.
-    date: "Saturday, August 8",
-    name: "Mat Pilates",
-    time: "7:00-7:45 AM",
-    location: "Neaumix Fit · Lake Forest",
-    href: "https://www.wellnessliving.com/explore/locations/open-gym/us-ca-lake_forest/neaumixfit-lake_forest/schedule/classes/mat-pilates-436632807869/book/?dt=2026-08-08+14%3A00%3A00&kClass=18172097",
-  },
-  {
-    date: "Sunday, August 9",
-    name: "Mat Pilates",
-    time: "7:30-8:15 AM",
-    location: "Neaumix Fit · Lake Forest",
-    href: "https://www.wellnessliving.com/explore/locations/open-gym/us-ca-lake_forest/neaumixfit-lake_forest/schedule/classes/mat-pilates-436632807869/book/?dt=2026-08-09+14%3A30%3A00&kClass=17697614",
-  },
   {
     date: "Saturday, August 15",
     name: "Mat Pilates",
@@ -106,6 +71,20 @@ export const upcomingClasses: UpcomingClass[] = [
     time: "7:30-8:15 AM",
     location: "Neaumix Fit · Lake Forest",
     href: "https://www.wellnessliving.com/explore/locations/open-gym/us-ca-lake_forest/neaumixfit-lake_forest/schedule/classes/mat-pilates-436632807869/book/?dt=2026-08-16+14%3A30%3A00&kClass=17697614",
+  },
+  {
+    date: "Saturday, August 22",
+    name: "Mat Pilates",
+    time: "11:00-11:45 AM",
+    location: "Neaumix Fit · Lake Forest",
+    href: "https://www.wellnessliving.com/explore/locations/open-gym/us-ca-lake_forest/neaumixfit-lake_forest/schedule/classes/mat-pilates-436632807869/book/?dt=2026-08-22+18%3A00%3A00&kClass=18417087",
+  },
+  {
+    date: "Sunday, August 23",
+    name: "Mat Pilates",
+    time: "7:30-8:15 AM",
+    location: "Neaumix Fit · Lake Forest",
+    href: "https://www.wellnessliving.com/explore/locations/open-gym/us-ca-lake_forest/neaumixfit-lake_forest/schedule/classes/mat-pilates-436632807869/book/?dt=2026-08-23+14%3A30%3A00&kClass=17697614",
   },
 ];
 
