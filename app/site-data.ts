@@ -109,6 +109,34 @@ export const upcomingClasses: UpcomingClass[] = [
   },
 ];
 
+// A short, timed announcement strip above the nav. Self-expiring: the banner
+// stops rendering once `untilUtc` passes, so a "this Sunday" message can't
+// linger into Monday - set `untilUtc` to the END of the last thing being
+// announced (the 10:30-11:15 AM PDT reformer ends at 18:15Z). Set the whole
+// export to null when there is nothing to announce.
+export type Announcement = {
+  /** Small pill to the left, e.g. "Just added". */
+  eyebrow: string;
+  text: string;
+  /** Link label, e.g. "See the times". */
+  cta: string;
+  /** On-page anchor. Schedule.tsx renders a "#day-YYYY-MM-DD" id on the first
+   *  still-listed row of each California day, so pointing at a day lands on the
+   *  classes being announced and keeps working as that day's earlier classes
+   *  finish and drop off. "#upcoming-classes" is the whole-section fallback. */
+  href: string;
+  /** UTC instant the banner stops rendering, "YYYY-MM-DDTHH:MM:SSZ". */
+  untilUtc: string;
+};
+
+export const announcement: Announcement | null = {
+  eyebrow: "Just added",
+  text: "3 new reformer classes for this Sunday",
+  cta: "See the times",
+  href: "#day-2026-08-23",
+  untilUtc: "2026-08-23T18:15:00Z",
+};
+
 // Blue Moon Pilates - private one-on-one sessions in Mission Viejo.
 // Direct https MindBody booking link for Blue Moon (studio id 3357). All
 // external links must be https; the old get.mndbdy.ly shortener was http-only.

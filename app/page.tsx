@@ -1,3 +1,4 @@
+import AnnouncementBanner from "./components/AnnouncementBanner";
 import Nav from "./components/Nav";
 import SiteMotion from "./components/SiteMotion";
 import Hero from "./components/Hero";
@@ -20,6 +21,7 @@ export default function Home() {
   return (
     <>
       <SiteMotion />
+      <AnnouncementBanner />
       <Nav />
       <main id="main" className="flex-1">
         <Hero />

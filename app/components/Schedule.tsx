@@ -127,6 +127,23 @@ function classDurationMs(time: string): number {
   return (range.end - range.start) * 60 * 1000;
 }
 
+// Anchor id for a day of the schedule, e.g. "day-2026-08-23". Rendered on the
+// FIRST still-listed row of each Pacific day, so a link written by hand
+// elsewhere - the announcement banner deep-links to a specific Sunday - always
+// lands on whatever of that day is left. Anchoring at one class instead would
+// break mid-morning: that class gets filtered out once it ends and the link
+// would quietly scroll nowhere.
+//
+// Takes the Date both row builders already hold - a *local* Date whose Y/M/D
+// are the intended California calendar day - so read the parts off directly.
+// Running it through toLocaleDateString with a timeZone would be wrong: the
+// site builds on Vercel in UTC, where a local midnight converts back to the
+// previous day in Los Angeles.
+function dayAnchorId(date: Date): string {
+  const pad = (n: number) => String(n).padStart(2, "0");
+  return `day-${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}`;
+}
+
 type ScheduleRow = {
   kind: "group" | "private";
   day: string;
@@ -139,6 +156,8 @@ type ScheduleRow = {
   href: string;
   /** Epoch ms for chronological sorting. */
   sort: number;
+  /** Anchor id for this row's California day (see dayAnchorId). */
+  dayKey: string;
 };
 
 export default function Schedule() {
@@ -171,6 +190,7 @@ export default function Schedule() {
         location: session.location,
         href: session.href,
         sort: Number.isNaN(start) ? date.getTime() : start,
+        dayKey: dayAnchorId(date),
       };
     });
 
@@ -225,11 +245,21 @@ export default function Schedule() {
       location: BLUE_MOON_LOCATION,
       href: BLUE_MOON_BOOK_URL,
       sort: d.getTime(),
+      dayKey: dayAnchorId(d),
     });
   }
 
   // One schedule across both studios, in true date order.
   const schedule = [...groupRows, ...privateRows].sort((a, b) => a.sort - b.sort);
+
+  // First row of each Pacific day carries that day's anchor; later rows on the
+  // same day get none, so the id stays unique.
+  const seenDays = new Set<string>();
+  const anchorFor = schedule.map((row) => {
+    if (seenDays.has(row.dayKey)) return undefined;
+    seenDays.add(row.dayKey);
+    return row.dayKey;
+  });
 
   return (
     <section
@@ -429,7 +459,8 @@ export default function Schedule() {
             return (
               <li
                 key={`${row.kind}-${row.sort}-${row.time}`}
-                className={`flex flex-col gap-4 rounded-2xl px-5 py-5 sm:flex-row sm:items-center sm:justify-between ${cardClass}`}
+                id={anchorFor[i]}
+                className={`schedule-row flex flex-col gap-4 rounded-2xl px-5 py-5 sm:flex-row sm:items-center sm:justify-between ${cardClass}`}
               >
                 <div className="flex items-baseline gap-4">
                   <div className="min-w-28">
