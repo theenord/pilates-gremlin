@@ -5,6 +5,7 @@ import {
   FaMoon,
 } from "react-icons/fa6";
 import { MdSelfImprovement } from "react-icons/md";
+import BookingLink from "./BookingLink";
 import {
   upcomingClasses,
   FIRST_FREE_URL,
@@ -275,7 +276,7 @@ export default function Schedule() {
           id="schedule-heading"
           className="mt-3 font-display text-3xl font-semibold tracking-tight text-ink sm:text-4xl"
         >
-          Practice with me this week
+          Upcoming classes
         </h2>
         <p className="mt-4 text-lg leading-relaxed text-ink/75">
           Group mat and reformer classes at Neaumix Fit in Lake Forest and
@@ -314,14 +315,13 @@ export default function Schedule() {
           </div>
 
           <div className="lg:self-start">
-            <a
+            <BookingLink
               href={BLUE_MOON_BOOK_URL}
-              target="_blank"
-              rel="noopener noreferrer"
+              event="blue-moon-private"
               className="flex w-full items-center justify-center whitespace-nowrap rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-primary/90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
             >
               Book a private session
-            </a>
+            </BookingLink>
             <div className="mt-2.5 flex flex-wrap gap-2">
               <a
                 href={MINDBODY_APP_IOS}
@@ -384,14 +384,13 @@ export default function Schedule() {
           </div>
 
           <div className="lg:self-start">
-            <a
+            <BookingLink
               href={FIRST_FREE_URL}
-              target="_blank"
-              rel="noopener noreferrer"
+              event="neaumix-first-free"
               className="flex w-full items-center justify-center whitespace-nowrap rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-primary/90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
             >
               Book your free class
-            </a>
+            </BookingLink>
             <div className="mt-2.5 flex flex-wrap gap-2">
               <a
                 href={NEAUMIX_APP_IOS}
@@ -481,11 +480,11 @@ export default function Schedule() {
                       {isPrivate ? `Appointments ${row.time}` : row.time}
                     </p>
                     {isPrivate && (
-                      <p className="text-xs text-ink/60">
+                      <p className="text-xs text-ink/75">
                         By appointment. Reserve your preferred start time.
                       </p>
                     )}
-                    <p className="text-sm text-ink/70">{row.location}</p>
+                    <p className="text-sm text-ink/75">{row.location}</p>
                     <span
                       className={`mt-1.5 inline-flex items-center gap-1.5 rounded-full px-2 py-0.5 text-[0.65rem] font-semibold uppercase tracking-[0.14em] text-primary ${
                         isPrivate ? "bg-white/70 ring-1 ring-primary/20" : "bg-secondary/20"
@@ -499,15 +498,15 @@ export default function Schedule() {
                   </div>
                 </div>
 
-                <div className="flex flex-col items-start gap-2.5 sm:items-end">
-                  <a
+                <div className="flex flex-col items-stretch gap-2.5 sm:items-end">
+                  <BookingLink
                     href={row.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex shrink-0 items-center justify-center rounded-full bg-primary px-6 py-2 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-primary/90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+                    event={row.kind === "group" ? "schedule-group" : "schedule-private"}
+                    detail={`${row.label} ${row.dateLabel}`}
+                    className="inline-flex w-full shrink-0 items-center justify-center rounded-full bg-primary px-6 py-3 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-primary/90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary sm:w-auto"
                   >
                     {row.kind === "group" ? "Join" : "Book"}
-                  </a>
+                  </BookingLink>
 
                   {row.kind === "group" && (
                     <details className="cp-options">

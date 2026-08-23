@@ -1,12 +1,10 @@
 import type { IconType } from "react-icons";
 import {
   FaCalendarCheck,
-  FaInstagram,
   FaPatreon,
   FaPeopleGroup,
 } from "react-icons/fa6";
 import { MdSelfImprovement } from "react-icons/md";
-import { SiSubstack } from "react-icons/si";
 
 // External booking URLs reused across the site.
 export const BOOK_GROUP_URL =
@@ -178,7 +176,9 @@ export type TrainingLink = {
   actions?: TrainingAction[];
 };
 
-// "Ways to Train / Links" cards.
+// "Ways to Train" cards. Booking and practice channels only. Instagram and
+// Substack deliberately live in the footer instead: they are not ways to train,
+// and duplicating them here diluted a grid meant to route people into a class.
 export const trainingLinks: TrainingLink[] = [
   {
     title: "Group Mat Classes",
@@ -220,19 +220,5 @@ export const trainingLinks: TrainingLink[] = [
     href: "https://sweatpals.com/host/The_Pilates_Gremlin",
     Icon: FaPeopleGroup,
     tone: "bg-primary/10 text-primary",
-  },
-  {
-    title: "Substack",
-    description: "Read notes on movement, posture, and the gremlin life.",
-    href: "https://substack.com/@thepilatesgremlin",
-    Icon: SiSubstack,
-    tone: "bg-accent/40 text-ink",
-  },
-  {
-    title: "Instagram",
-    description: "Follow along for tips, reels, and class updates.",
-    href: "https://www.instagram.com/thepilatesgremlin",
-    Icon: FaInstagram,
-    tone: "bg-secondary/20 text-primary",
   },
 ];

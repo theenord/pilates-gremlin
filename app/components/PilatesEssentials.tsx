@@ -10,7 +10,7 @@ export default function PilatesEssentials() {
       className="border-t border-accent/60 bg-background"
     >
       <div className="mx-auto w-full max-w-6xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
-        <div className="mx-auto max-w-2xl text-center">
+        <div className="reveal mx-auto max-w-2xl text-center">
           <h2
             id="essentials-heading"
             className="font-display text-3xl font-semibold tracking-tight text-ink sm:text-4xl"
@@ -26,7 +26,7 @@ export default function PilatesEssentials() {
           </p>
         </div>
 
-        <ul className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <ul className="reveal d1 mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {essentials.map(({ title, blurb, image, url }) => (
             <li key={title}>
               <a
@@ -38,7 +38,7 @@ export default function PilatesEssentials() {
                 <div className="relative aspect-square w-full bg-white">
                   <Image
                     src={image}
-                    alt={title}
+                    alt=""
                     fill
                     sizes="(max-width: 640px) 90vw, (max-width: 1024px) 45vw, 22rem"
                     className="object-contain p-6"

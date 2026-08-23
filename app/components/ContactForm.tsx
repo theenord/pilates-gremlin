@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useEffect, useRef, useState, type FormEvent } from "react";
 
 // ============================================================================
 // FORMSPREE SETUP
@@ -23,6 +23,14 @@ type Status = "idle" | "submitting" | "success" | "error";
 
 export default function ContactForm() {
   const [status, setStatus] = useState<Status>("idle");
+  const successRef = useRef<HTMLParagraphElement>(null);
+
+  // Submitting swaps the whole form out for the confirmation panel. Without
+  // this, a keyboard or screen-reader user is dropped back at the top of the
+  // document with no idea the send succeeded.
+  useEffect(() => {
+    if (status === "success") successRef.current?.focus();
+  }, [status]);
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -48,7 +56,7 @@ export default function ContactForm() {
   }
 
   const fieldClass =
-    "w-full rounded-xl border border-accent bg-white px-4 py-2.5 text-ink shadow-sm transition-colors placeholder:text-ink/40 focus:border-primary focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-primary";
+    "w-full rounded-xl border border-line bg-white px-4 py-2.5 text-ink shadow-sm transition-colors placeholder:text-ink/40 focus:border-primary focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-primary";
 
   return (
     <section
@@ -75,7 +83,11 @@ export default function ContactForm() {
             role="status"
             className="mt-10 rounded-2xl border border-primary/30 bg-white p-8 text-center shadow-sm"
           >
-            <p className="font-display text-xl font-semibold text-ink">
+            <p
+              ref={successRef}
+              tabIndex={-1}
+              className="font-display text-xl font-semibold text-ink focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
+            >
               Thank you! Your message is on its way.
             </p>
             <p className="mt-2 text-ink/70">
@@ -154,7 +166,7 @@ export default function ContactForm() {
                 {reasons.map((reason, i) => (
                   <label
                     key={reason}
-                    className="flex cursor-pointer items-center gap-3 rounded-xl border border-accent bg-white px-4 py-3 text-sm text-ink transition-colors hover:border-primary/50 has-[:checked]:border-primary has-[:checked]:bg-primary/5"
+                    className="flex cursor-pointer items-center gap-3 rounded-xl border border-line bg-white px-4 py-3 text-sm text-ink transition-colors hover:border-primary/50 has-[:checked]:border-primary has-[:checked]:bg-primary/5"
                   >
                     <input
                       type="radio"

@@ -11,6 +11,11 @@
   --color-background: #faf8f5; /* soft warm ivory */
   --color-accent: #e3d5ca; /* sand beige */
   --color-ink: #2f3a46; /* deep charcoal navy (body text) */
+  /* Border for form controls. --color-accent is 1.43:1 against a white field,
+     which leaves an input's only boundary effectively invisible and fails
+     WCAG 2.2 SC 1.4.11 (3:1 for non-text UI). This is the same sand hue taken
+     dark enough to clear it: 3.26:1 on white, 3.07:1 on the ivory background. */
+  --color-line: #968d85;
 
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   /* Display face swapped from Fraunces -> Newsreader (modern, even-weight serif) */
@@ -137,8 +142,20 @@ body::after {
   border-radius: 50%;
   filter: blur(46px);
   animation: breathe 9s ease-in-out infinite;
-  will-change: transform, opacity;
   pointer-events: none;
+}
+
+/* Three 46px-blurred orbs animating forever are the most expensive thing on the
+   page to composite, and they are only ever visible behind the hero. SiteMotion
+   adds this class once the hero scrolls away, so the rest of the page is not
+   paying to animate something nobody can see. Purely a cost change: while the
+   hero is on screen the orbs behave exactly as before.
+
+   The will-change declaration was also removed above. It was pinning three
+   large blurred compositing layers in memory for the whole session, which is
+   what the property is explicitly not meant for. */
+#breath-field.motion-idle .breath-orb {
+  animation-play-state: paused;
 }
 
 /* Shimmering brand word in the hero headline */

@@ -1,18 +1,21 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { FaBars, FaXmark } from "react-icons/fa6";
 
 const navItems = [
   { label: "Home", href: "#home" },
-  { label: "About", href: "#about" },
   { label: "Classes", href: "#upcoming-classes" },
+  { label: "About", href: "#about" },
+  { label: "FAQ", href: "#faq" },
   { label: "Contact", href: "#contact" },
 ];
 
 export default function Nav() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const headerRef = useRef<HTMLElement>(null);
+  const toggleRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -21,8 +24,31 @@ export default function Nav() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // Dismiss the mobile menu the two ways people expect: Escape, or a click
+  // anywhere outside it. Focus returns to the toggle so keyboard users are not
+  // dropped back at the top of the page.
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setOpen(false);
+        toggleRef.current?.focus();
+      }
+    };
+    const onClick = (e: MouseEvent) => {
+      if (!headerRef.current?.contains(e.target as Node)) setOpen(false);
+    };
+    document.addEventListener("keydown", onKey);
+    document.addEventListener("click", onClick);
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.removeEventListener("click", onClick);
+    };
+  }, [open]);
+
   return (
     <header
+      ref={headerRef}
       className={`sticky top-0 z-40 border-b transition-all duration-300 ${
         scrolled
           ? "border-accent/60 bg-background/90 shadow-sm backdrop-blur-md"
@@ -72,6 +98,7 @@ export default function Nav() {
           {/* Mobile menu toggle */}
           <button
             type="button"
+            ref={toggleRef}
             onClick={() => setOpen((v) => !v)}
             aria-expanded={open}
             aria-controls="mobile-menu"

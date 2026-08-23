@@ -1,3 +1,5 @@
+import { FaChevronDown } from "react-icons/fa6";
+
 export default function About() {
   return (
     <section
@@ -17,6 +19,10 @@ export default function About() {
         </h2>
       </div>
 
+      {/* The opening two paragraphs carry the story on their own. The remaining
+          three sit behind a disclosure so this section stops being a wall of
+          text between the schedule and everything below it. Wording is
+          unchanged; only how much shows at rest. */}
       <div className="reveal d1 mx-auto mt-8 max-w-2xl space-y-5 text-left text-lg leading-relaxed text-ink/75">
         <p>
           I believe everyone deserves to feel at home in their own body. Movement
@@ -35,31 +41,44 @@ export default function About() {
           practice around: that the goal isn&apos;t to perform, it&apos;s to come
           home to yourself.
         </p>
-        <p>
-          That&apos;s why I believe Pilates is for every body, not just a certain
-          age, size, background, or fitness level. Representation and
-          accessibility matter to me, and I&apos;m passionate about creating
-          welcoming movement spaces where every client feels seen, supported, and
-          empowered, with the focus on function, healing, and longevity. Pilates
-          Gremlin was born from this belief, that Pilates is more than matching
-          sets and matcha. It&apos;s functional movement we practice throughout
-          our lives, no matter our age or stage of life.
-        </p>
-        <p>
-          So if that resonates with you, here&apos;s how we work together.
-          Whether your goal is to build strength, improve mobility, support
-          injury recovery, enhance athletic performance, or simply feel more at
-          home in your body, I&apos;m here to guide you. My goal is to help you
-          move better, feel stronger, and build lasting trust in your body
-          through thoughtful movement and intentional practice, always knowing
-          you&apos;re safe and welcomed exactly as you are.
-        </p>
-        <p>
-          Hello, I am the Pilates Gremlin, and I teach movement that is
-          intelligent, supportive, challenging, and rooted in curiosity, offering
-          virtual and in-person private and group sessions across mat, Reformer,
-          Cadillac/Tower, and other Pilates apparatus.
-        </p>
+
+        <details className="disclosure group">
+          <summary className="inline-flex items-center gap-2 text-base font-semibold text-primary hover:text-primary/80 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary">
+            Read the rest of my story
+            <FaChevronDown
+              className="disclosure-caret h-3.5 w-3.5"
+              aria-hidden="true"
+            />
+          </summary>
+
+          <div className="mt-5 space-y-5">
+            <p>
+              That&apos;s why I believe Pilates is for every body, not just a
+              certain age, size, background, or fitness level. Representation and
+              accessibility matter to me, and I&apos;m passionate about creating
+              welcoming movement spaces where every client feels seen, supported,
+              and empowered, with the focus on function, healing, and longevity.
+              Pilates Gremlin was born from this belief, that Pilates is more
+              than matching sets and matcha. It&apos;s functional movement we
+              practice throughout our lives, no matter our age or stage of life.
+            </p>
+            <p>
+              So if that resonates with you, here&apos;s how we work together.
+              Whether your goal is to build strength, improve mobility, support
+              injury recovery, enhance athletic performance, or simply feel more
+              at home in your body, I&apos;m here to guide you. My goal is to
+              help you move better, feel stronger, and build lasting trust in
+              your body through thoughtful movement and intentional practice,
+              always knowing you&apos;re safe and welcomed exactly as you are.
+            </p>
+            <p>
+              Hello, I am the Pilates Gremlin, and I teach movement that is
+              intelligent, supportive, challenging, and rooted in curiosity,
+              offering virtual and in-person private and group sessions across
+              mat, Reformer, Cadillac/Tower, and other Pilates apparatus.
+            </p>
+          </div>
+        </details>
       </div>
 
       <p className="reveal d2 mt-8 text-center font-display text-2xl font-semibold italic text-primary">

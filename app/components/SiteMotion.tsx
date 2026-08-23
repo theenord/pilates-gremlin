@@ -48,8 +48,16 @@ export default function SiteMotion() {
       const h = document.documentElement.scrollHeight - window.innerHeight;
       if (progress) progress.style.width = (h > 0 ? (y / h) * 100 : 0) + "%";
       if (!reduce) {
-        if (breathField)
-          breathField.style.transform = `translateY(${y * 0.18}px)`;
+        // The orbs live behind the hero, so once it is off screen there is
+        // nothing to parallax and nothing worth animating. Pausing them there
+        // costs the visitor nothing visually and stops three large blurred
+        // layers from recompositing for the rest of the page.
+        const heroGone = y > window.innerHeight;
+        if (breathField) {
+          breathField.classList.toggle("motion-idle", heroGone);
+          if (!heroGone)
+            breathField.style.transform = `translateY(${y * 0.18}px)`;
+        }
         if (heroMedia && y > 0 && y < window.innerHeight)
           heroMedia.style.transform = `translateY(${y * -0.06}px)`;
       }

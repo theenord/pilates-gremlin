@@ -53,7 +53,7 @@ export default function Hero() {
         />
       </div>
 
-      <div className="mx-auto grid w-full max-w-6xl items-center gap-10 px-4 py-16 sm:px-6 sm:py-24 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16 lg:px-8 lg:py-28">
+      <div className="mx-auto grid w-full max-w-6xl items-center gap-10 px-4 py-10 sm:px-6 sm:py-14 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16 lg:px-8 lg:py-16">
         <div className="flex flex-col items-start gap-6 text-left">
           <span className="hero-rise hero-rise-1 inline-flex items-center gap-2 rounded-full border border-primary/15 bg-primary/10 px-3.5 py-1 text-sm font-medium tracking-wide text-primary">
             Lake Forest · Mission Viejo · Orange County
@@ -101,7 +101,7 @@ export default function Hero() {
               aria-hidden="true"
               className="absolute -inset-3 -z-10 rounded-[2rem] bg-gradient-to-tr from-accent/50 via-secondary/30 to-transparent"
             />
-            <div className="relative aspect-[4/5] w-full overflow-hidden rounded-[1.75rem] bg-accent/20 shadow-2xl ring-1 ring-ink/5">
+            <div className="relative aspect-[4/5] max-h-[62vh] w-full overflow-hidden rounded-[1.75rem] bg-accent/20 shadow-2xl ring-1 ring-ink/5">
               <Image
                 src="/hero.png"
                 alt="Pilates Gremlin, a Pilates instructor in Lake Forest, Orange County"
@@ -131,13 +131,13 @@ export default function Hero() {
                 <span className="font-display font-semibold text-ink">
                   Group classes
                 </span>
-                <span className="text-ink/55"> · Neaumix Fit</span>
+                <span className="text-ink/70"> · Neaumix Fit</span>
               </p>
               <p className="text-xs leading-snug">
                 <span className="font-display font-semibold text-ink">
                   Comprehensive Pilates
                 </span>
-                <span className="text-ink/55"> · Blue Moon</span>
+                <span className="text-ink/70"> · Blue Moon</span>
               </p>
             </div>
           </div>

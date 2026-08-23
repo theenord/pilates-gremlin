@@ -26,8 +26,11 @@ export default function Home() {
       <main id="main" className="flex-1">
         <Hero />
         <IntroBand />
-        <About />
+        {/* Schedule sits directly under the intro: booking is the job this page
+            exists to do, so it comes before the personal story rather than
+            behind ~1200px of it. */}
         <Schedule />
+        <About />
         <WaysToTrain />
         <FAQ />
         <PilatesEssentials />

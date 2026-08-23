@@ -4,7 +4,7 @@ import { trainingLinks } from "../site-data";
 export default function WaysToTrain() {
   return (
     <section
-      id="classes"
+      id="ways-to-train"
       aria-labelledby="ways-heading"
       className="mx-auto w-full max-w-6xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8"
     >
