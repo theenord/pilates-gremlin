@@ -121,8 +121,11 @@ export const upcomingClasses: UpcomingClass[] = [
 // A short, timed announcement strip above the nav. Self-expiring: the banner
 // stops rendering once `untilUtc` passes, so a "this Sunday" message can't
 // linger into Monday - set `untilUtc` to the END of the last thing being
-// announced (the 10:30-11:15 AM PDT reformer ends at 18:15Z). Set the whole
-// export to null when there is nothing to announce.
+// announced (a 10:30-11:15 AM PDT reformer ends at 18:15Z). For a standing
+// schedule change rather than a one-off, end it after the first occurrence has
+// run, which is long enough for regulars to see it and short enough that
+// "new" stays true. Set the whole export to null when there is nothing to
+// announce.
 export type Announcement = {
   /** Small pill to the left, e.g. "Just added". */
   eyebrow: string;
@@ -140,10 +143,14 @@ export type Announcement = {
 
 export const announcement: Announcement | null = {
   eyebrow: "Just added",
-  text: "3 reformer classes added for today",
+  text: "New availability on Thursday and Friday!",
   cta: "See the times",
-  href: "#day-2026-08-30",
-  untilUtc: "2026-08-30T18:15:00Z",
+  // Two recurring weekdays, not one dated class, so this points at the whole
+  // section instead of a "#day-" anchor: a single day's anchor disappears once
+  // that day's last row drops off, and it would undersell a weekly change.
+  href: "#upcoming-classes",
+  // Through the end of the first Friday window (1:00 PM PDT = 20:00Z).
+  untilUtc: "2026-09-04T20:00:00Z",
 };
 
 // Blue Moon Pilates - private one-on-one sessions in Mission Viejo.
@@ -160,10 +167,23 @@ export const MINDBODY_APP_ANDROID =
 
 export type PrivateSlot = { day: string; time: string };
 
+// Cecily's standing weekly availability at Blue Moon. Schedule.tsx expands this
+// into real dates from today through the last group class, so a day added here
+// shows up on its next occurrence with no date bookkeeping.
 export const blueMoonAvailability: PrivateSlot[] = [
   { day: "Monday", time: "9:00 AM - 1:00 PM" },
   { day: "Tuesday", time: "9:00 AM - 1:00 PM" },
   { day: "Wednesday", time: "9:00 AM - 12:00 PM" },
+  { day: "Thursday", time: "9:00 AM - 1:00 PM" },
+  { day: "Friday", time: "9:00 AM - 1:00 PM" },
+];
+
+// One-off exceptions to the weekly pattern above: dates Cecily is not at Blue
+// Moon, as "YYYY-MM-DD" in California's calendar. The day simply does not
+// appear on the schedule. Drop entries once they pass.
+export const blueMoonClosedDates: string[] = [
+  // Labor Day - studio closed, no private sessions.
+  "2026-09-07",
 ];
 
 export type TrainingAction = {

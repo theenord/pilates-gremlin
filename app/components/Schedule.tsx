@@ -19,6 +19,7 @@ import {
   MINDBODY_APP_IOS,
   MINDBODY_APP_ANDROID,
   blueMoonAvailability,
+  blueMoonClosedDates,
 } from "../site-data";
 
 const BLUE_MOON_LOCATION = "Blue Moon Pilates · Mission Viejo";
@@ -141,8 +142,15 @@ function classDurationMs(time: string): number {
 // site builds on Vercel in UTC, where a local midnight converts back to the
 // previous day in Los Angeles.
 function dayAnchorId(date: Date): string {
+  return `day-${isoDate(date)}`;
+}
+
+// "YYYY-MM-DD" read straight off a local Date whose Y/M/D are the intended
+// California day - the same convention dayAnchorId relies on, and the format
+// blueMoonClosedDates is written in.
+function isoDate(date: Date): string {
   const pad = (n: number) => String(n).padStart(2, "0");
-  return `day-${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}`;
+  return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}`;
 }
 
 type ScheduleRow = {
@@ -221,6 +229,7 @@ export default function Schedule() {
     : new Date(today.getTime() + 13 * 86_400_000);
 
   const slotByDay = new Map(blueMoonAvailability.map((s) => [s.day, s]));
+  const closedDates = new Set(blueMoonClosedDates);
   const privateRows: ScheduleRow[] = [];
   for (
     let d = new Date(windowStart);
@@ -230,6 +239,9 @@ export default function Schedule() {
     if (d < today) continue;
     const slot = slotByDay.get(DAY_NAMES[d.getDay()]);
     if (!slot) continue;
+    // A holiday or other one-off closure drops that date entirely, even though
+    // its weekday is part of the standing weekly pattern.
+    if (closedDates.has(isoDate(d))) continue;
     // Today's window stays up until its end time in California has passed - a
     // 9:00 AM - 1:00 PM Monday is still bookable at noon and only drops after
     // 1:00 PM. Unparseable ranges stay all day rather than disappearing early.
