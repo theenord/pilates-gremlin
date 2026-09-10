@@ -153,6 +153,55 @@ export const announcement: Announcement | null = {
   untilUtc: "2026-09-04T20:00:00Z",
 };
 
+// A dated, dismissible feature banner for a single event, rendered above
+// everything else by EventBanner. Separate from `announcement` above on
+// purpose: that one is the recurring slim strip for schedule changes, and it
+// needs to stay usable while a longer-running event like this is up. Set the
+// export to null when there is no event.
+export type EventBanner = {
+  /** Small uppercase line above the headline, e.g. the date and time. */
+  label: string;
+  headline: string;
+  /** Studio hosting it, e.g. "Blue Moon Pilates". */
+  venue: string;
+  /** City and state the studio is in. */
+  city: string;
+  subtext: string;
+  /** Button label. */
+  cta: string;
+  /** Booking URL. Opens in a new tab. */
+  href: string;
+  /** Pill beside the button. */
+  badge: string;
+  /** localStorage key for the dismissal. Bump it for a new event so last
+   *  event's dismissal cannot hide this one. */
+  dismissKey: string;
+  /** How long a dismissal sticks, in days. */
+  dismissDays: number;
+  /** UTC instant the banner stops rendering, "YYYY-MM-DDTHH:MM:SSZ". */
+  untilUtc: string;
+};
+
+export const eventBanner: EventBanner | null = {
+  label: "Sunday, October 4 · 10:00 AM",
+  headline: "Movement for a Cause: Annual Breast Cancer Fundraising Mat Class",
+  venue: "Blue Moon Pilates",
+  city: "Mission Viejo, CA",
+  // "Limited spots available" is deliberately not repeated here: it is already
+  // the badge beside the button, and saying it twice cost a whole extra line
+  // on phones, where the banner sits directly above the fold.
+  subtext: "A 50-minute mat class supporting breast cancer research.",
+  cta: "Reserve Now",
+  badge: "Limited spots available",
+  // Blue Moon (MindBody studio 3357), the October 4 class on the day view.
+  href: "https://clients.mindbodyonline.com/classic/ws?studioid=3357&stype=-7&sView=day&sLoc=1&date=10/04/26&classid=3896",
+  dismissKey: "pg-event-2026-10-04-fundraiser",
+  dismissDays: 7,
+  // October 4, 2026 at 11:59 PM Pacific. That date is still PDT (UTC-7);
+  // DST does not end until November 1, so this is 06:59Z on October 5.
+  untilUtc: "2026-10-05T06:59:00Z",
+};
+
 // Blue Moon Pilates - private one-on-one sessions in Mission Viejo.
 // Direct https MindBody booking link for Blue Moon (studio id 3357). All
 // external links must be https; the old get.mndbdy.ly shortener was http-only.

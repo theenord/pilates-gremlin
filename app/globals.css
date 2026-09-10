@@ -17,6 +17,16 @@
      dark enough to clear it: 3.26:1 on white, 3.07:1 on the ivory background. */
   --color-line: #968d85;
 
+  /* Breast-cancer fundraiser accent. A dusty rose rather than a hot pink, so
+     the event banner reads as a sibling of the ivory page instead of a sticker
+     on top of it. Contrast on the blush band (#fbe6ee): rose-ink 6.13:1,
+     white on rose-ink 7.29:1, and rose-line 3.16:1 for the badge outline
+     (WCAG 2.2 SC 1.4.11 wants 3:1 for a non-text boundary). */
+  --color-blush: #fbe6ee;
+  --color-rose-ink: #8c3a5e;
+  --color-rose-deep: #7d2f52;
+  --color-rose-line: #b56e8e;
+
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   /* Display face swapped from Fraunces -> Newsreader (modern, even-weight serif) */
   --font-display: var(--font-newsreader), ui-serif, Georgia, serif;
@@ -242,6 +252,27 @@ body::after {
   100% {
     transform: translateX(100%);
   }
+}
+
+/* Dated event banner (EventBanner). A soft blush wash instead of the blue
+   announce-bar gradient, so the two read as different kinds of message when
+   both happen to be up. */
+.event-banner {
+  background: linear-gradient(
+    100deg,
+    #fdf2f6 0%,
+    var(--color-blush) 48%,
+    #fdf2f6 100%
+  );
+  box-shadow: inset 0 -1px 0 rgba(140, 58, 94, 0.18);
+}
+
+/* Dismissal is CSS, not React state. EventBanner ships a blocking script that
+   sets this attribute while the browser is still parsing, so a visitor who
+   closed the banner never sees it flash back in before hydration. The close
+   button sets the same attribute. */
+html[data-event-banner="dismissed"] .event-banner {
+  display: none;
 }
 
 /* Schedule row you were deep-linked to (the announcement banner points at a

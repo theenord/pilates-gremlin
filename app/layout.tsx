@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, Newsreader } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
+import EventBanner from "./components/EventBanner";
 import "./globals.css";
 
 const inter = Inter({
@@ -146,6 +147,12 @@ export default function RootLayout({
         >
           Skip to main content
         </a>
+        {/* Sitewide, so a one-off event banner is declared once here rather
+            than repeated per page. It sits above the nav in normal document
+            flow: the header is `sticky top-0`, so making this sticky too would
+            mean re-offsetting the header against a bar whose height changes
+            with the copy. Renders nothing once the event has passed. */}
+        <EventBanner />
         {children}
         <script
           type="application/ld+json"
