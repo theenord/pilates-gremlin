@@ -29,6 +29,15 @@ export const NEAUMIX_APP_IOS =
 export const NEAUMIX_APP_ANDROID =
   "https://play.google.com/store/apps/details?id=neaumix.fit.newport";
 
+// The October 4 breast cancer fundraiser at Blue Moon: MindBody's day view for
+// studio 3357. Both the top banner and the schedule row point here, so they
+// cannot drift apart. Deliberately NOT the &classid=3896 deep link to the class
+// itself - that bounces a logged-out visitor straight to a MindBody sign-in
+// wall, while the day view shows the class and its own Sign Up button to
+// anyone.
+export const FUNDRAISER_BOOK_URL =
+  "https://clients.mindbodyonline.com/classic/ws?studioid=3357&stype=-7&sView=day&sLoc=1&date=10/04/26";
+
 export type UpcomingClass = {
   /** Human-readable date, e.g. "Sunday, June 7" */
   date: string;
@@ -47,7 +56,7 @@ export type UpcomingClass = {
 // the WellnessLiving booking pages; remove past entries as they pass.
 // kClass identifies the individual class instance, NOT the weekly recurrence -
 // consecutive Saturdays can carry different ids, and ids sometimes do repeat
-// across dates (Sep 5 and Sep 12 are both 18417087; Sep 6 and Sep 13 are both
+// across dates (Sep 12 and Sep 19 are both 18417087; Sep 13 and Sep 20 are both
 // 17697614). Always read each date's id off the live schedule; never copy one
 // forward to next week. Times move too, so verify those per date as well.
 // Note the studio's schedule widget paginates - a day's later classes can sit
@@ -56,52 +65,6 @@ export type UpcomingClass = {
 // (a 5:30 PM PDT class is 00:30Z) - that is correct, and Schedule.tsx converts
 // it back to the Pacific calendar date.
 export const upcomingClasses: UpcomingClass[] = [
-  {
-    date: "Sunday, August 30",
-    name: "Mat Pilates",
-    time: "7:30-8:15 AM",
-    location: "Neaumix Fit · Lake Forest",
-    href: "https://www.wellnessliving.com/explore/locations/open-gym/us-ca-lake_forest/neaumixfit-lake_forest/schedule/classes/mat-pilates-436632807869/book/?dt=2026-08-30+14%3A30%3A00&kClass=17697614",
-  },
-  // One-off: Cecily picked up Aug 30's three morning reformer slots last
-  // minute. On Sep 6 and Sep 13 those same 8:30/9:30/10:30 classes are Sky's,
-  // so this is not the weekly pattern - her standing slots are Saturday
-  // 11:00 AM mat and Sunday 7:30 AM mat.
-  {
-    date: "Sunday, August 30",
-    name: "Reformer Pilates",
-    time: "8:30-9:15 AM",
-    location: "Neaumix Fit · Lake Forest",
-    href: "https://www.wellnessliving.com/explore/locations/open-gym/us-ca-lake_forest/neaumixfit-lake_forest/schedule/classes/reformer-pilates-436632767675/book/?dt=2026-08-30+15%3A30%3A00&kClass=18574694",
-  },
-  {
-    date: "Sunday, August 30",
-    name: "Reformer Pilates",
-    time: "9:30-10:15 AM",
-    location: "Neaumix Fit · Lake Forest",
-    href: "https://www.wellnessliving.com/explore/locations/open-gym/us-ca-lake_forest/neaumixfit-lake_forest/schedule/classes/reformer-pilates-436632767675/book/?dt=2026-08-30+16%3A30%3A00&kClass=18574692",
-  },
-  {
-    date: "Sunday, August 30",
-    name: "Reformer Pilates",
-    time: "10:30-11:15 AM",
-    location: "Neaumix Fit · Lake Forest",
-    href: "https://www.wellnessliving.com/explore/locations/open-gym/us-ca-lake_forest/neaumixfit-lake_forest/schedule/classes/reformer-pilates-436632767675/book/?dt=2026-08-30+17%3A30%3A00&kClass=18574690",
-  },
-  {
-    date: "Saturday, September 5",
-    name: "Mat Pilates",
-    time: "11:00-11:45 AM",
-    location: "Neaumix Fit · Lake Forest",
-    href: "https://www.wellnessliving.com/explore/locations/open-gym/us-ca-lake_forest/neaumixfit-lake_forest/schedule/classes/mat-pilates-436632807869/book/?dt=2026-09-05+18%3A00%3A00&kClass=18417087",
-  },
-  {
-    date: "Sunday, September 6",
-    name: "Mat Pilates",
-    time: "7:30-8:15 AM",
-    location: "Neaumix Fit · Lake Forest",
-    href: "https://www.wellnessliving.com/explore/locations/open-gym/us-ca-lake_forest/neaumixfit-lake_forest/schedule/classes/mat-pilates-436632807869/book/?dt=2026-09-06+14%3A30%3A00&kClass=17697614",
-  },
   {
     date: "Saturday, September 12",
     name: "Mat Pilates",
@@ -115,6 +78,61 @@ export const upcomingClasses: UpcomingClass[] = [
     time: "7:30-8:15 AM",
     location: "Neaumix Fit · Lake Forest",
     href: "https://www.wellnessliving.com/explore/locations/open-gym/us-ca-lake_forest/neaumixfit-lake_forest/schedule/classes/mat-pilates-436632807869/book/?dt=2026-09-13+14%3A30%3A00&kClass=17697614",
+  },
+  {
+    date: "Saturday, September 19",
+    name: "Mat Pilates",
+    time: "11:00-11:45 AM",
+    location: "Neaumix Fit · Lake Forest",
+    href: "https://www.wellnessliving.com/explore/locations/open-gym/us-ca-lake_forest/neaumixfit-lake_forest/schedule/classes/mat-pilates-436632807869/book/?dt=2026-09-19+18%3A00%3A00&kClass=18417087",
+  },
+  {
+    date: "Sunday, September 20",
+    name: "Mat Pilates",
+    time: "7:30-8:15 AM",
+    location: "Neaumix Fit · Lake Forest",
+    href: "https://www.wellnessliving.com/explore/locations/open-gym/us-ca-lake_forest/neaumixfit-lake_forest/schedule/classes/mat-pilates-436632807869/book/?dt=2026-09-20+14%3A30%3A00&kClass=17697614",
+  },
+  // Coverage stops here. Sep 26 does list her usual 11:00 AM Saturday mat, but
+  // the studio's booking window only reaches Sep 24: Sep 25 onward render
+  // CLOSED and emit no kClass links at all, so there is no link to point at
+  // yet. Re-run /update-schedule in a few days to pick those dates up.
+];
+
+// One-off events Cecily teaches that are not part of either standing schedule -
+// the annual fundraiser, a workshop, a pop-up. They sit on the same schedule
+// list as everything else so someone scrolling the week actually finds them,
+// and they are kept separate from `upcomingClasses` for two reasons: the
+// booking links are not WellnessLiving, so there is no `dt` to parse a date
+// out of, and a date weeks out must not stretch the Blue Moon projection
+// (Schedule.tsx sizes that window off the group classes only).
+export type SpecialEvent = {
+  /** Badge text. Keep it short - it renders as a one-line pill. */
+  name: string;
+  /** Full event title, shown on the row above the location. */
+  title: string;
+  /** Displayed time range, e.g. "10:00-10:50 AM". Schedule.tsx parses the end
+   *  out of this to drop the row once the event is actually over. */
+  time: string;
+  location: string;
+  /** Booking URL. Need not be WellnessLiving. */
+  href: string;
+  /** Start instant in UTC, "YYYY-MM-DDTHH:MM:SSZ". Written out rather than
+   *  derived so there is no offset guessing: 10:00 AM PDT is 17:00Z, and a
+   *  date in Pacific Standard Time (early Nov to mid Mar) would be 18:00Z.
+   *  Schedule.tsx converts it back to the California day for the row's label. */
+  startUtc: string;
+};
+
+export const specialEvents: SpecialEvent[] = [
+  {
+    name: "Fundraiser Mat Class",
+    title: "Movement for a Cause: Annual Breast Cancer Fundraising Mat Class",
+    time: "10:00-10:50 AM",
+    location: "Blue Moon Pilates · Mission Viejo",
+    href: FUNDRAISER_BOOK_URL,
+    // Sunday, October 4 at 10:00 AM PDT. 50 minutes, per MindBody.
+    startUtc: "2026-10-04T17:00:00Z",
   },
 ];
 
@@ -141,17 +159,10 @@ export type Announcement = {
   untilUtc: string;
 };
 
-export const announcement: Announcement | null = {
-  eyebrow: "Just added",
-  text: "New availability on Thursday and Friday!",
-  cta: "See the times",
-  // Two recurring weekdays, not one dated class, so this points at the whole
-  // section instead of a "#day-" anchor: a single day's anchor disappears once
-  // that day's last row drops off, and it would undersell a weekly change.
-  href: "#upcoming-classes",
-  // Through the end of the first Friday window (1:00 PM PDT = 20:00Z).
-  untilUtc: "2026-09-04T20:00:00Z",
-};
+// Nothing to announce right now. The Thursday/Friday Blue Moon availability
+// this last held expired on Sep 4 and is now just part of the standing weekly
+// schedule, so the strip is off rather than sitting here spent.
+export const announcement: Announcement | null = null;
 
 // A dated, dismissible feature banner for a single event, rendered above
 // everything else by EventBanner. Separate from `announcement` above on
@@ -173,11 +184,11 @@ export type EventBanner = {
   href: string;
   /** Pill beside the button. */
   badge: string;
-  /** localStorage key for the dismissal. Bump it for a new event so last
-   *  event's dismissal cannot hide this one. */
+  /** sessionStorage key for the dismissal. Closing the banner hides it for the
+   *  rest of that visit only - it is back on the visitor's next one, which is
+   *  the point for an event worth a second look. Bump the key for a new event
+   *  so a dismissal in a still-open tab cannot hide the next one. */
   dismissKey: string;
-  /** How long a dismissal sticks, in days. */
-  dismissDays: number;
   /** UTC instant the banner stops rendering, "YYYY-MM-DDTHH:MM:SSZ". */
   untilUtc: string;
 };
@@ -193,10 +204,8 @@ export const eventBanner: EventBanner | null = {
   subtext: "A 50-minute mat class supporting breast cancer research.",
   cta: "Reserve Now",
   badge: "Limited spots available",
-  // Blue Moon (MindBody studio 3357), the October 4 class on the day view.
-  href: "https://clients.mindbodyonline.com/classic/ws?studioid=3357&stype=-7&sView=day&sLoc=1&date=10/04/26&classid=3896",
+  href: FUNDRAISER_BOOK_URL,
   dismissKey: "pg-event-2026-10-04-fundraiser",
-  dismissDays: 7,
   // October 4, 2026 at 11:59 PM Pacific. That date is still PDT (UTC-7);
   // DST does not end until November 1, so this is 06:59Z on October 5.
   untilUtc: "2026-10-05T06:59:00Z",

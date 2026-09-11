@@ -2,38 +2,33 @@
 
 import { FaXmark } from "react-icons/fa6";
 
-const DAY_MS = 86_400_000;
-
 type Props = {
-  /** localStorage key the dismissal is recorded under. */
+  /** sessionStorage key the dismissal is recorded under. */
   storageKey: string;
-  /** How long the dismissal sticks, in days. */
-  days: number;
 };
 
 /**
  * Close button for the event banner.
  *
- * It stores the instant the dismissal *expires* rather than the instant it
- * happened, so the read side (the blocking script in EventBanner) is a single
- * comparison and the window length lives in one place, in site-data.
+ * The dismissal is recorded in sessionStorage, not localStorage, so it lasts
+ * exactly one visit: closing the banner keeps it shut while someone is here,
+ * and it is back the next time they come to the site. An annual fundraiser is
+ * worth asking about more than once, and a visitor who dismissed it in March
+ * should not be the reason they never hear about it again.
  *
  * Hiding is left to CSS: this flips `data-event-banner` on <html> and
  * globals.css takes the band down. That keeps the banner itself a server
  * component with no state to hydrate, and means the same attribute handles
- * both "just closed it" and "closed it last Tuesday".
+ * both "just closed it" and "closed it earlier this visit".
  */
-export default function EventBannerDismiss({ storageKey, days }: Props) {
+export default function EventBannerDismiss({ storageKey }: Props) {
   return (
     <button
       type="button"
       aria-label="Dismiss announcement"
       onClick={() => {
         try {
-          window.localStorage.setItem(
-            storageKey,
-            String(Date.now() + days * DAY_MS)
-          );
+          window.sessionStorage.setItem(storageKey, "1");
         } catch {
           // Private mode, or storage blocked. The banner still closes for this
           // page view; it just comes back on the next one.

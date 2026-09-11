@@ -3,11 +3,13 @@ import {
   FaGooglePlay,
   FaChevronDown,
   FaMoon,
+  FaRibbon,
 } from "react-icons/fa6";
 import { MdSelfImprovement } from "react-icons/md";
 import BookingLink from "./BookingLink";
 import {
   upcomingClasses,
+  specialEvents,
   FIRST_FREE_URL,
   NEAUMIX_SITE,
   NEAUMIX_APP_IOS,
@@ -58,7 +60,14 @@ const fmtDate = (d: Date) => `${MONTHS[d.getMonth()]} ${d.getDate()}`;
 // and sort that class as Saturday, so convert the instant to California time
 // first and take the date there.
 function classDate(href: string): Date {
-  const startMs = classStartMs(href);
+  return pacificDate(classStartMs(href));
+}
+
+// The California calendar day an instant falls on, as a *local* Date whose
+// Y/M/D are that day - the convention fmtDate, dayAnchorId and isoDate all
+// read off directly. Shared by the booking-link rows and the special events,
+// which carry their start as a plain UTC stamp instead of a link.
+function pacificDate(startMs: number): Date {
   if (Number.isNaN(startMs)) return new Date(NaN);
   const pacific = new Date(
     new Date(startMs).toLocaleString("en-US", {
@@ -154,12 +163,15 @@ function isoDate(date: Date): string {
 }
 
 type ScheduleRow = {
-  kind: "group" | "private";
+  kind: "group" | "private" | "event";
   day: string;
   /** Sub-label under the day, e.g. "July 6". */
   dateLabel: string;
   /** Badge text - the class name for group rows, a fixed label for private. */
   label: string;
+  /** Extra line under the time. Currently the full title of a special event,
+   *  which is too long to live in the badge. */
+  note?: string;
   time: string;
   location: string;
   href: string;
@@ -199,6 +211,38 @@ export default function Schedule() {
         location: session.location,
         href: session.href,
         sort: Number.isNaN(start) ? date.getTime() : start,
+        dayKey: dayAnchorId(date),
+      };
+    });
+
+  // One-off events (the annual fundraiser). Same "stays until its end time"
+  // rule as the classes above, with the duration read off the displayed range.
+  // These are deliberately kept out of `groupTimes` below: a date weeks out
+  // would stretch the Blue Moon projection across every week in between and
+  // bury the actual schedule under a month of private-availability rows.
+  const eventRows: ScheduleRow[] = specialEvents
+    .filter((event) => {
+      const start = Date.parse(event.startUtc);
+      // startUtc is the only source of an event row's day and date label, so
+      // an unparseable one has nothing coherent to render. That is the reverse
+      // of the group rule above, where a link we can't parse still carries its
+      // own written-out date and is worth keeping.
+      if (Number.isNaN(start)) return false;
+      return start + classDurationMs(event.time) > nowMs;
+    })
+    .map((event) => {
+      const start = Date.parse(event.startUtc);
+      const date = pacificDate(start);
+      return {
+        kind: "event",
+        day: DAY_NAMES[date.getDay()],
+        dateLabel: fmtDate(date),
+        label: event.name,
+        note: event.title,
+        time: event.time,
+        location: event.location,
+        href: event.href,
+        sort: start,
         dayKey: dayAnchorId(date),
       };
     });
@@ -263,7 +307,9 @@ export default function Schedule() {
   }
 
   // One schedule across both studios, in true date order.
-  const schedule = [...groupRows, ...privateRows].sort((a, b) => a.sort - b.sort);
+  const schedule = [...groupRows, ...privateRows, ...eventRows].sort(
+    (a, b) => a.sort - b.sort,
+  );
 
   // First row of each Pacific day carries that day's anchor; later rows on the
   // same day get none, so the id stays unique.
@@ -464,9 +510,15 @@ export default function Schedule() {
           {schedule.map((row, i) => {
             const isNext = i === 0;
             const isPrivate = row.kind === "private";
+            const isEvent = row.kind === "event";
+            // A fundraiser is not a regular class, so it takes the rose the
+            // event banner already uses rather than pretending to be one more
+            // Saturday mat.
             const cardClass = isPrivate
               ? "border border-dashed border-primary/40 bg-secondary/10"
-              : "border border-accent/60 bg-white/70 shadow-sm";
+              : isEvent
+                ? "border border-rose-line/60 bg-blush/60 shadow-sm"
+                : "border border-accent/60 bg-white/70 shadow-sm";
             return (
               <li
                 key={`${row.kind}-${row.sort}-${row.time}`}
@@ -496,14 +548,26 @@ export default function Schedule() {
                         By appointment. Reserve your preferred start time.
                       </p>
                     )}
+                    {row.note && (
+                      <p className="text-sm font-semibold leading-snug text-rose-ink">
+                        {row.note}
+                      </p>
+                    )}
                     <p className="text-sm text-ink/75">{row.location}</p>
                     <span
-                      className={`mt-1.5 inline-flex items-center gap-1.5 rounded-full px-2 py-0.5 text-[0.65rem] font-semibold uppercase tracking-[0.14em] text-primary ${
-                        isPrivate ? "bg-white/70 ring-1 ring-primary/20" : "bg-secondary/20"
+                      className={`mt-1.5 inline-flex items-center gap-1.5 rounded-full px-2 py-0.5 text-[0.65rem] font-semibold uppercase tracking-[0.14em] ${
+                        isPrivate
+                          ? "bg-white/70 text-primary ring-1 ring-primary/20"
+                          : isEvent
+                            ? "bg-white/80 text-rose-ink ring-1 ring-rose-line/60"
+                            : "bg-secondary/20 text-primary"
                       }`}
                     >
                       {isPrivate && (
                         <FaMoon className="h-2.5 w-2.5" aria-hidden="true" />
+                      )}
+                      {isEvent && (
+                        <FaRibbon className="h-2.5 w-2.5" aria-hidden="true" />
                       )}
                       {row.label}
                     </span>
@@ -513,11 +577,15 @@ export default function Schedule() {
                 <div className="flex flex-col items-stretch gap-2.5 sm:items-end">
                   <BookingLink
                     href={row.href}
-                    event={row.kind === "group" ? "schedule-group" : "schedule-private"}
+                    event={`schedule-${row.kind}`}
                     detail={`${row.label} ${row.dateLabel}`}
-                    className="inline-flex w-full shrink-0 items-center justify-center rounded-full bg-primary px-6 py-3 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-primary/90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary sm:w-auto"
+                    className={`inline-flex w-full shrink-0 items-center justify-center rounded-full px-6 py-3 text-sm font-semibold text-white shadow-sm transition-colors sm:w-auto ${
+                      isEvent
+                        ? "bg-rose-ink hover:bg-rose-deep focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rose-deep"
+                        : "bg-primary hover:bg-primary/90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+                    }`}
                   >
-                    {row.kind === "group" ? "Join" : "Book"}
+                    {isEvent ? "Reserve" : row.kind === "group" ? "Join" : "Book"}
                   </BookingLink>
 
                   {row.kind === "group" && (

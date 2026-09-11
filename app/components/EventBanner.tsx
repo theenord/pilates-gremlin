@@ -16,14 +16,17 @@ import { eventBanner } from "../site-data";
  *    expired banner lingers, the same way finished classes drop off the
  *    schedule. An unparseable `untilUtc` keeps the banner up rather than
  *    silently hiding it, matching AnnouncementBanner.
- * 2. The visitor. EventBannerDismiss records an expiry stamp in localStorage
+ * 2. The visitor. EventBannerDismiss records the dismissal in sessionStorage
  *    and flips `data-event-banner` on <html>; globals.css hides the band.
+ *    sessionStorage rather than localStorage is the whole point: a dismissal
+ *    covers the current visit and nothing more, so the banner is back on the
+ *    visitor's next one instead of being gone for a week.
  *
- * The dismissal deliberately avoids React state. Reading localStorage during
- * render would either mismatch hydration or flash the banner back at people
- * who already closed it, so the check below is a blocking script that runs
- * while the browser is still parsing, before this markup is painted. Only the
- * close button ships JavaScript; the band is server-rendered.
+ * The dismissal deliberately avoids React state. Reading storage during render
+ * would either mismatch hydration or flash the banner back at people who
+ * already closed it, so the check below is a blocking script that runs while
+ * the browser is still parsing, before this markup is painted. Only the close
+ * button ships JavaScript; the band is server-rendered.
  */
 export default function EventBanner() {
   if (!eventBanner) return null;
@@ -37,9 +40,9 @@ export default function EventBanner() {
     <>
       <script
         dangerouslySetInnerHTML={{
-          __html: `try{var v=localStorage.getItem(${JSON.stringify(
+          __html: `try{if(sessionStorage.getItem(${JSON.stringify(
             dismissKey
-          )});if(v&&Date.now()<+v){document.documentElement.setAttribute("data-event-banner","dismissed")}}catch(e){}`,
+          )})){document.documentElement.setAttribute("data-event-banner","dismissed")}}catch(e){}`,
         }}
       />
 
@@ -118,10 +121,7 @@ export default function EventBanner() {
           </div>
         </div>
 
-        <EventBannerDismiss
-          storageKey={dismissKey}
-          days={eventBanner.dismissDays}
-        />
+        <EventBannerDismiss storageKey={dismissKey} />
       </section>
     </>
   );
