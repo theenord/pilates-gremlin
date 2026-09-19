@@ -56,29 +56,15 @@ export type UpcomingClass = {
 // the WellnessLiving booking pages; remove past entries as they pass.
 // kClass identifies the individual class instance, NOT the weekly recurrence -
 // consecutive Saturdays can carry different ids, and ids sometimes do repeat
-// across dates (Sep 12 and Sep 19 are both 18417087; Sep 13 and Sep 20 are both
-// 17697614). Always read each date's id off the live schedule; never copy one
-// forward to next week. Times move too, so verify those per date as well.
+// across dates (Sep 19, Sep 26 and Oct 3 are all 18417087; Sep 20 and Sep 27
+// are both 17697614). Always read each date's id off the live schedule; never
+// copy one forward to next week. Times move too, so verify those per date.
 // Note the studio's schedule widget paginates - a day's later classes can sit
 // on page 2, so check every page before concluding a class doesn't exist.
 // dt is the start in UTC, so an afternoon class carries the *next* day's date
 // (a 5:30 PM PDT class is 00:30Z) - that is correct, and Schedule.tsx converts
 // it back to the Pacific calendar date.
 export const upcomingClasses: UpcomingClass[] = [
-  {
-    date: "Saturday, September 12",
-    name: "Mat Pilates",
-    time: "11:00-11:45 AM",
-    location: "Neaumix Fit · Lake Forest",
-    href: "https://www.wellnessliving.com/explore/locations/open-gym/us-ca-lake_forest/neaumixfit-lake_forest/schedule/classes/mat-pilates-436632807869/book/?dt=2026-09-12+18%3A00%3A00&kClass=18417087",
-  },
-  {
-    date: "Sunday, September 13",
-    name: "Mat Pilates",
-    time: "7:30-8:15 AM",
-    location: "Neaumix Fit · Lake Forest",
-    href: "https://www.wellnessliving.com/explore/locations/open-gym/us-ca-lake_forest/neaumixfit-lake_forest/schedule/classes/mat-pilates-436632807869/book/?dt=2026-09-13+14%3A30%3A00&kClass=17697614",
-  },
   {
     date: "Saturday, September 19",
     name: "Mat Pilates",
@@ -93,10 +79,34 @@ export const upcomingClasses: UpcomingClass[] = [
     location: "Neaumix Fit · Lake Forest",
     href: "https://www.wellnessliving.com/explore/locations/open-gym/us-ca-lake_forest/neaumixfit-lake_forest/schedule/classes/mat-pilates-436632807869/book/?dt=2026-09-20+14%3A30%3A00&kClass=17697614",
   },
-  // Coverage stops here. Sep 26 does list her usual 11:00 AM Saturday mat, but
-  // the studio's booking window only reaches Sep 24: Sep 25 onward render
-  // CLOSED and emit no kClass links at all, so there is no link to point at
-  // yet. Re-run /update-schedule in a few days to pick those dates up.
+  {
+    date: "Saturday, September 26",
+    name: "Mat Pilates",
+    time: "11:00-11:45 AM",
+    location: "Neaumix Fit · Lake Forest",
+    href: "https://www.wellnessliving.com/explore/locations/open-gym/us-ca-lake_forest/neaumixfit-lake_forest/schedule/classes/mat-pilates-436632807869/book/?dt=2026-09-26+18%3A00%3A00&kClass=18417087",
+  },
+  {
+    date: "Sunday, September 27",
+    name: "Mat Pilates",
+    time: "7:30-8:15 AM",
+    location: "Neaumix Fit · Lake Forest",
+    href: "https://www.wellnessliving.com/explore/locations/open-gym/us-ca-lake_forest/neaumixfit-lake_forest/schedule/classes/mat-pilates-436632807869/book/?dt=2026-09-27+14%3A30%3A00&kClass=17697614",
+  },
+  {
+    date: "Saturday, October 3",
+    name: "Mat Pilates",
+    time: "11:00-11:45 AM",
+    location: "Neaumix Fit · Lake Forest",
+    href: "https://www.wellnessliving.com/explore/locations/open-gym/us-ca-lake_forest/neaumixfit-lake_forest/schedule/classes/mat-pilates-436632807869/book/?dt=2026-10-03+18%3A00%3A00&kClass=18417087",
+  },
+  // Coverage stops here, at a full two weeks out. Oct 4 does list her usual
+  // 7:30 AM Sunday mat, but the studio's booking window ends after Oct 3: Oct 4
+  // renders CLOSED and emits no kClass link, so there is nothing to point at
+  // yet. Re-run /update-schedule in a few days to pick it up.
+  // Verified Sep 19: no weekday Cecily classes anywhere from Sep 21 through
+  // Oct 2 - every day, every page. Her only rows in the window are the weekend
+  // mat classes above.
 ];
 
 // One-off events Cecily teaches that are not part of either standing schedule -
@@ -240,8 +250,7 @@ export const blueMoonAvailability: PrivateSlot[] = [
 // Moon, as "YYYY-MM-DD" in California's calendar. The day simply does not
 // appear on the schedule. Drop entries once they pass.
 export const blueMoonClosedDates: string[] = [
-  // Labor Day - studio closed, no private sessions.
-  "2026-09-07",
+  // Nothing upcoming. The Labor Day closure (Sep 7) has passed and was removed.
 ];
 
 export type TrainingAction = {
