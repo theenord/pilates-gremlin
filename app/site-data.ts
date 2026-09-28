@@ -65,47 +65,38 @@ export type UpcomingClass = {
 // (a 5:30 PM PDT class is 00:30Z) - that is correct, and Schedule.tsx converts
 // it back to the Pacific calendar date.
 export const upcomingClasses: UpcomingClass[] = [
-  {
-    date: "Saturday, September 19",
-    name: "Mat Pilates",
-    time: "11:00-11:45 AM",
-    location: "Neaumix Fit · Lake Forest",
-    href: "https://www.wellnessliving.com/explore/locations/open-gym/us-ca-lake_forest/neaumixfit-lake_forest/schedule/classes/mat-pilates-436632807869/book/?dt=2026-09-19+18%3A00%3A00&kClass=18417087",
-  },
-  {
-    date: "Sunday, September 20",
-    name: "Mat Pilates",
-    time: "7:30-8:15 AM",
-    location: "Neaumix Fit · Lake Forest",
-    href: "https://www.wellnessliving.com/explore/locations/open-gym/us-ca-lake_forest/neaumixfit-lake_forest/schedule/classes/mat-pilates-436632807869/book/?dt=2026-09-20+14%3A30%3A00&kClass=17697614",
-  },
-  {
-    date: "Saturday, September 26",
-    name: "Mat Pilates",
-    time: "11:00-11:45 AM",
-    location: "Neaumix Fit · Lake Forest",
-    href: "https://www.wellnessliving.com/explore/locations/open-gym/us-ca-lake_forest/neaumixfit-lake_forest/schedule/classes/mat-pilates-436632807869/book/?dt=2026-09-26+18%3A00%3A00&kClass=18417087",
-  },
-  {
-    date: "Sunday, September 27",
-    name: "Mat Pilates",
-    time: "7:30-8:15 AM",
-    location: "Neaumix Fit · Lake Forest",
-    href: "https://www.wellnessliving.com/explore/locations/open-gym/us-ca-lake_forest/neaumixfit-lake_forest/schedule/classes/mat-pilates-436632807869/book/?dt=2026-09-27+14%3A30%3A00&kClass=17697614",
-  },
+  // One-off: Oct 3 runs at 7:00 AM instead of her usual 11:00, and there is
+  // no later class that day.
   {
     date: "Saturday, October 3",
     name: "Mat Pilates",
+    time: "7:00-7:45 AM",
+    location: "Neaumix Fit · Lake Forest",
+    href: "https://www.wellnessliving.com/explore/locations/open-gym/us-ca-lake_forest/neaumixfit-lake_forest/schedule/classes/mat-pilates-436632807869/book/?dt=2026-10-03+14%3A00%3A00&kClass=18818672",
+  },
+  {
+    date: "Sunday, October 4",
+    name: "Mat Pilates",
+    time: "7:30-8:15 AM",
+    location: "Neaumix Fit · Lake Forest",
+    href: "https://www.wellnessliving.com/explore/locations/open-gym/us-ca-lake_forest/neaumixfit-lake_forest/schedule/classes/mat-pilates-436632807869/book/?dt=2026-10-04+14%3A30%3A00&kClass=17697614",
+  },
+  {
+    date: "Saturday, October 10",
+    name: "Mat Pilates",
     time: "11:00-11:45 AM",
     location: "Neaumix Fit · Lake Forest",
-    href: "https://www.wellnessliving.com/explore/locations/open-gym/us-ca-lake_forest/neaumixfit-lake_forest/schedule/classes/mat-pilates-436632807869/book/?dt=2026-10-03+18%3A00%3A00&kClass=18417087",
+    href: "https://www.wellnessliving.com/explore/locations/open-gym/us-ca-lake_forest/neaumixfit-lake_forest/schedule/classes/mat-pilates-436632807869/book/?dt=2026-10-10+18%3A00%3A00&kClass=18818701",
   },
-  // Coverage stops here, at a full two weeks out. Oct 4 does list her usual
-  // 7:30 AM Sunday mat, but the studio's booking window ends after Oct 3: Oct 4
-  // renders CLOSED and emits no kClass link, so there is nothing to point at
-  // yet. Re-run /update-schedule in a few days to pick it up.
-  // Verified Sep 19: no weekday Cecily classes anywhere from Sep 21 through
-  // Oct 2 - every day, every page. Her only rows in the window are the weekend
+  {
+    date: "Sunday, October 11",
+    name: "Mat Pilates",
+    time: "7:30-8:15 AM",
+    location: "Neaumix Fit · Lake Forest",
+    href: "https://www.wellnessliving.com/explore/locations/open-gym/us-ca-lake_forest/neaumixfit-lake_forest/schedule/classes/mat-pilates-436632807869/book/?dt=2026-10-11+14%3A30%3A00&kClass=17697614",
+  },
+  // Verified Sep 27: no weekday Cecily classes anywhere from Sep 28 through
+  // Oct 9 - every day, every page. Her only rows in the window are the weekend
   // mat classes above.
 ];
 
