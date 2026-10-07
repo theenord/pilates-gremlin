@@ -93,8 +93,8 @@ export const upcomingClasses: UpcomingClass[] = [
     location: "Neaumix Fit · Lake Forest",
     href: "https://www.wellnessliving.com/explore/locations/open-gym/us-ca-lake_forest/neaumixfit-lake_forest/schedule/classes/mat-pilates-436632807869/book/?dt=2026-10-18+14%3A30%3A00&kClass=17697614",
   },
-  // Verified Oct 4: no weekday Cecily classes anywhere from Oct 5 through
-  // Oct 16 - every day, every page. Her only rows in the window are the weekend
+  // Verified Oct 6: no weekday Cecily classes anywhere from Oct 6 through
+  // Oct 20 - every day, every page. Her only rows in the window are the weekend
   // mat classes above.
 ];
 
