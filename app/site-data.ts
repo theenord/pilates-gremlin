@@ -66,20 +66,6 @@ export type UpcomingClass = {
 // it back to the Pacific calendar date.
 export const upcomingClasses: UpcomingClass[] = [
   {
-    date: "Saturday, October 10",
-    name: "Mat Pilates",
-    time: "11:00-11:45 AM",
-    location: "Neaumix Fit · Lake Forest",
-    href: "https://www.wellnessliving.com/explore/locations/open-gym/us-ca-lake_forest/neaumixfit-lake_forest/schedule/classes/mat-pilates-436632807869/book/?dt=2026-10-10+18%3A00%3A00&kClass=18818701",
-  },
-  {
-    date: "Sunday, October 11",
-    name: "Mat Pilates",
-    time: "7:30-8:15 AM",
-    location: "Neaumix Fit · Lake Forest",
-    href: "https://www.wellnessliving.com/explore/locations/open-gym/us-ca-lake_forest/neaumixfit-lake_forest/schedule/classes/mat-pilates-436632807869/book/?dt=2026-10-11+14%3A30%3A00&kClass=17697614",
-  },
-  {
     date: "Saturday, October 17",
     name: "Mat Pilates",
     time: "11:00-11:45 AM",
@@ -93,8 +79,22 @@ export const upcomingClasses: UpcomingClass[] = [
     location: "Neaumix Fit · Lake Forest",
     href: "https://www.wellnessliving.com/explore/locations/open-gym/us-ca-lake_forest/neaumixfit-lake_forest/schedule/classes/mat-pilates-436632807869/book/?dt=2026-10-18+14%3A30%3A00&kClass=17697614",
   },
-  // Verified Oct 6: no weekday Cecily classes anywhere from Oct 6 through
-  // Oct 20 - every day, every page. Her only rows in the window are the weekend
+  {
+    date: "Saturday, October 24",
+    name: "Mat Pilates",
+    time: "11:00-11:45 AM",
+    location: "Neaumix Fit · Lake Forest",
+    href: "https://www.wellnessliving.com/explore/locations/open-gym/us-ca-lake_forest/neaumixfit-lake_forest/schedule/classes/mat-pilates-436632807869/book/?dt=2026-10-24+18%3A00%3A00&kClass=18807950",
+  },
+  {
+    date: "Sunday, October 25",
+    name: "Mat Pilates",
+    time: "7:30-8:15 AM",
+    location: "Neaumix Fit · Lake Forest",
+    href: "https://www.wellnessliving.com/explore/locations/open-gym/us-ca-lake_forest/neaumixfit-lake_forest/schedule/classes/mat-pilates-436632807869/book/?dt=2026-10-25+14%3A30%3A00&kClass=17697614",
+  },
+  // Verified Oct 16: no weekday Cecily classes anywhere from Oct 16 through
+  // Oct 30 - every day, every page. Her only rows in the window are the weekend
   // mat classes above.
 ];
 
