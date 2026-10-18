@@ -66,20 +66,6 @@ export type UpcomingClass = {
 // it back to the Pacific calendar date.
 export const upcomingClasses: UpcomingClass[] = [
   {
-    date: "Saturday, October 17",
-    name: "Mat Pilates",
-    time: "11:00-11:45 AM",
-    location: "Neaumix Fit · Lake Forest",
-    href: "https://www.wellnessliving.com/explore/locations/open-gym/us-ca-lake_forest/neaumixfit-lake_forest/schedule/classes/mat-pilates-436632807869/book/?dt=2026-10-17+18%3A00%3A00&kClass=18807950",
-  },
-  {
-    date: "Sunday, October 18",
-    name: "Mat Pilates",
-    time: "7:30-8:15 AM",
-    location: "Neaumix Fit · Lake Forest",
-    href: "https://www.wellnessliving.com/explore/locations/open-gym/us-ca-lake_forest/neaumixfit-lake_forest/schedule/classes/mat-pilates-436632807869/book/?dt=2026-10-18+14%3A30%3A00&kClass=17697614",
-  },
-  {
     date: "Saturday, October 24",
     name: "Mat Pilates",
     time: "11:00-11:45 AM",
@@ -93,8 +79,23 @@ export const upcomingClasses: UpcomingClass[] = [
     location: "Neaumix Fit · Lake Forest",
     href: "https://www.wellnessliving.com/explore/locations/open-gym/us-ca-lake_forest/neaumixfit-lake_forest/schedule/classes/mat-pilates-436632807869/book/?dt=2026-10-25+14%3A30%3A00&kClass=17697614",
   },
-  // Verified Oct 16: no weekday Cecily classes anywhere from Oct 16 through
-  // Oct 30 - every day, every page. Her only rows in the window are the weekend
+  {
+    date: "Saturday, October 31",
+    name: "Mat Pilates",
+    time: "11:00-11:45 AM",
+    location: "Neaumix Fit · Lake Forest",
+    href: "https://www.wellnessliving.com/explore/locations/open-gym/us-ca-lake_forest/neaumixfit-lake_forest/schedule/classes/mat-pilates-436632807869/book/?dt=2026-10-31+18%3A00%3A00&kClass=18807950",
+  },
+  // Nov 1 is the first day of Pacific Standard Time, so 7:30 AM is 15:30 UTC.
+  {
+    date: "Sunday, November 1",
+    name: "Mat Pilates",
+    time: "7:30-8:15 AM",
+    location: "Neaumix Fit · Lake Forest",
+    href: "https://www.wellnessliving.com/explore/locations/open-gym/us-ca-lake_forest/neaumixfit-lake_forest/schedule/classes/mat-pilates-436632807869/book/?dt=2026-11-01+15%3A30%3A00&kClass=17697614",
+  },
+  // Verified Oct 18: no weekday Cecily classes anywhere from Oct 18 through
+  // Nov 1 - every day, every page. Her only rows in the window are the weekend
   // mat classes above.
 ];
 
