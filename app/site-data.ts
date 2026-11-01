@@ -65,21 +65,6 @@ export type UpcomingClass = {
 // (a 5:30 PM PDT class is 00:30Z) - that is correct, and Schedule.tsx converts
 // it back to the Pacific calendar date.
 export const upcomingClasses: UpcomingClass[] = [
-  {
-    date: "Saturday, October 31",
-    name: "Mat Pilates",
-    time: "11:00-11:45 AM",
-    location: "Neaumix Fit · Lake Forest",
-    href: "https://www.wellnessliving.com/explore/locations/open-gym/us-ca-lake_forest/neaumixfit-lake_forest/schedule/classes/mat-pilates-436632807869/book/?dt=2026-10-31+18%3A00%3A00&kClass=19025070",
-  },
-  // Nov 1 is the first day of Pacific Standard Time, so 7:30 AM is 15:30 UTC.
-  {
-    date: "Sunday, November 1",
-    name: "Mat Pilates",
-    time: "7:30-8:15 AM",
-    location: "Neaumix Fit · Lake Forest",
-    href: "https://www.wellnessliving.com/explore/locations/open-gym/us-ca-lake_forest/neaumixfit-lake_forest/schedule/classes/mat-pilates-436632807869/book/?dt=2026-11-01+15%3A30%3A00&kClass=17697614",
-  },
   // One-off: 7:00 AM instead of her usual 11:00 AM Saturday slot.
   {
     date: "Saturday, November 7",
@@ -88,9 +73,31 @@ export const upcomingClasses: UpcomingClass[] = [
     location: "Neaumix Fit · Lake Forest",
     href: "https://www.wellnessliving.com/explore/locations/open-gym/us-ca-lake_forest/neaumixfit-lake_forest/schedule/classes/mat-pilates-436632807869/book/?dt=2026-11-07+15%3A00%3A00&kClass=19025074",
   },
-  // Verified Oct 25: no weekday Cecily classes anywhere from Oct 25 through
-  // Nov 8 - every day, every page. Sunday Nov 8 shows CLOSED (booking not
-  // open yet), so it is left off until the next update.
+  {
+    date: "Sunday, November 8",
+    name: "Mat Pilates",
+    time: "7:30-8:15 AM",
+    location: "Neaumix Fit · Lake Forest",
+    href: "https://www.wellnessliving.com/explore/locations/open-gym/us-ca-lake_forest/neaumixfit-lake_forest/schedule/classes/mat-pilates-436632807869/book/?dt=2026-11-08+15%3A30%3A00&kClass=17697614",
+  },
+  // Pacific Standard Time now, so 11:00 AM is 19:00 UTC.
+  {
+    date: "Saturday, November 14",
+    name: "Mat Pilates",
+    time: "11:00-11:45 AM",
+    location: "Neaumix Fit · Lake Forest",
+    href: "https://www.wellnessliving.com/explore/locations/open-gym/us-ca-lake_forest/neaumixfit-lake_forest/schedule/classes/mat-pilates-436632807869/book/?dt=2026-11-14+19%3A00%3A00&kClass=19025071",
+  },
+  {
+    date: "Sunday, November 15",
+    name: "Mat Pilates",
+    time: "7:30-8:15 AM",
+    location: "Neaumix Fit · Lake Forest",
+    href: "https://www.wellnessliving.com/explore/locations/open-gym/us-ca-lake_forest/neaumixfit-lake_forest/schedule/classes/mat-pilates-436632807869/book/?dt=2026-11-15+15%3A30%3A00&kClass=17697614",
+  },
+  // Verified Nov 1: no weekday Cecily classes anywhere from Nov 1 through
+  // Nov 15 - every day, every page. Her only rows in the window are the
+  // weekend mat classes above.
 ];
 
 // One-off events Cecily teaches that are not part of either standing schedule -
