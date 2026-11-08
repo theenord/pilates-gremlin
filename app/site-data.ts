@@ -65,13 +65,6 @@ export type UpcomingClass = {
 // (a 5:30 PM PDT class is 00:30Z) - that is correct, and Schedule.tsx converts
 // it back to the Pacific calendar date.
 export const upcomingClasses: UpcomingClass[] = [
-  {
-    date: "Sunday, November 8",
-    name: "Mat Pilates",
-    time: "7:30-8:15 AM",
-    location: "Neaumix Fit · Lake Forest",
-    href: "https://www.wellnessliving.com/explore/locations/open-gym/us-ca-lake_forest/neaumixfit-lake_forest/schedule/classes/mat-pilates-436632807869/book/?dt=2026-11-08+15%3A30%3A00&kClass=17697614",
-  },
   // Pacific Standard Time now, so 11:00 AM is 19:00 UTC.
   {
     date: "Saturday, November 14",
@@ -87,9 +80,23 @@ export const upcomingClasses: UpcomingClass[] = [
     location: "Neaumix Fit · Lake Forest",
     href: "https://www.wellnessliving.com/explore/locations/open-gym/us-ca-lake_forest/neaumixfit-lake_forest/schedule/classes/mat-pilates-436632807869/book/?dt=2026-11-15+15%3A30%3A00&kClass=17697614",
   },
-  // Verified Nov 7: no weekday Cecily classes anywhere from Nov 7 through
-  // Nov 21 - every day, every page. Sat Nov 21 (11:00 AM) shows CLOSED, booking
-  // not open yet, so it is left off until the next update.
+  {
+    date: "Saturday, November 21",
+    name: "Mat Pilates",
+    time: "11:00-11:45 AM",
+    location: "Neaumix Fit · Lake Forest",
+    href: "https://www.wellnessliving.com/explore/locations/open-gym/us-ca-lake_forest/neaumixfit-lake_forest/schedule/classes/mat-pilates-436632807869/book/?dt=2026-11-21+19%3A00%3A00&kClass=19025071",
+  },
+  {
+    date: "Sunday, November 22",
+    name: "Mat Pilates",
+    time: "7:30-8:15 AM",
+    location: "Neaumix Fit · Lake Forest",
+    href: "https://www.wellnessliving.com/explore/locations/open-gym/us-ca-lake_forest/neaumixfit-lake_forest/schedule/classes/mat-pilates-436632807869/book/?dt=2026-11-22+15%3A30%3A00&kClass=17697614",
+  },
+  // Verified Nov 8: no weekday Cecily classes anywhere from Nov 8 through
+  // Nov 22 - every day, every page. Her only rows in the window are the
+  // weekend mat classes above.
 ];
 
 // One-off events Cecily teaches that are not part of either standing schedule -
